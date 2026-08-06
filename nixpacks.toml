@@ -1,0 +1,19 @@
+# Root nixpacks.toml
+#
+# NOTE: When a Railway service sets a custom rootDirectory (e.g. /server or
+# /client), Railpack/Nixpacks looks for a nixpacks.toml inside that
+# subdirectory rather than this root config. See server/nixpacks.toml and
+# client/nixpacks.toml for the per-service build/start configuration used by
+# the mythisoft-crm (backend) and calm-wonder (frontend) services.
+#
+# This root-level config exists to override Railpack's automatic monorepo
+# detection for any service deploying from the repo root.
+
+[phases.install]
+cmds = ["npm install --prefix server", "npm install --prefix client"]
+
+[phases.build]
+cmds = ["npm run build --prefix client"]
+
+[start]
+cmd = "npm run start --prefix server"
