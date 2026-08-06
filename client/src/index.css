@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-myth-border;
+  }
+  body {
+    @apply bg-myth-navy-dark text-gray-100 font-sans antialiased;
+  }
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-myth-navy-dark;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-myth-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-myth-accent/50;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-myth-accent hover:bg-myth-accent-dark text-myth-navy font-semibold px-4 py-2.5 rounded-lg transition-all duration-200 shadow-glow hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply bg-myth-card hover:bg-myth-navy-light text-gray-200 border border-myth-border font-medium px-4 py-2.5 rounded-lg transition-all duration-200;
+  }
+  .btn-danger {
+    @apply bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-600/30 font-medium px-4 py-2.5 rounded-lg transition-all duration-200;
+  }
+  .input-field {
+    @apply w-full bg-myth-surface border border-myth-border rounded-lg px-4 py-2.5 text-gray-100 placeholder-gray-500 focus:outline-none focus:border-myth-accent focus:ring-1 focus:ring-myth-accent/30 transition-all duration-200;
+  }
+  select.input-field {
+    @apply cursor-pointer appearance-none bg-no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239CA3AF' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+  }
+  select.input-field option {
+    @apply bg-myth-card text-gray-100;
+    background-color: #0f1d32;
+    color: #f3f4f6;
+  }
+  .card {
+    @apply bg-myth-card border border-myth-border rounded-xl p-6 shadow-card;
+  }
+  .stat-card {
+    @apply card relative overflow-hidden;
+  }
+  .stat-card::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-myth-accent to-myth-accent-dark;
+  }
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+  .table-header {
+    @apply text-left text-xs font-semibold text-gray-400 uppercase tracking-wider px-4 py-3;
+  }
+  .table-cell {
+    @apply px-4 py-3.5 text-sm text-gray-300;
+  }
+  .sidebar-link {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-400 hover:text-white hover:bg-myth-navy-light/50 transition-all duration-200 text-sm font-medium;
+  }
+  .sidebar-link-active {
+    @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-myth-accent bg-myth-accent/10 border border-myth-accent/20 text-sm font-medium;
+  }
+}
+
+@media print {
+  aside,
+  header,
+  .print\\:hidden {
+    display: none !important;
+  }
+  main {
+    padding: 0 !important;
+    padding-left: 0 !important;
+  }
+  #admin-setup-checklist {
+    border: 1px solid #ccc;
+    background: #fff !important;
+    color: #111;
+  }
+  #admin-setup-checklist h2,
+  #admin-setup-checklist .text-white {
+    color: #111 !important;
+  }
+}
