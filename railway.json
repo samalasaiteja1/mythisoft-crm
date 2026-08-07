@@ -11,16 +11,20 @@
   },
   "services": {
     "server": {
-      "buildCommand": "cd server && npm install",
-      "startCommand": "cd server && npm start",
+      "rootDirectory": "server",
+      "buildCommand": "npm install",
+      "startCommand": "npm start",
       "env": {
         "NODE_ENV": "production",
-        "PORT": "3000"
+        "PORT": "3000",
+        "CLIENT_URL": "https://mythisoft-client-production.up.railway.app",
+        "CLIENT_URLS": "https://mythisoft-client-production.up.railway.app"
       }
     },
     "client": {
-      "buildCommand": "cd client && npm install && npm run build",
-      "startCommand": "cd client && npm start",
+      "rootDirectory": "client",
+      "buildCommand": "npm install && npm run build",
+      "startCommand": "npm run preview",
       "env": {
         "NODE_ENV": "production",
         "PORT": "3001",
