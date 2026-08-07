@@ -181,12 +181,18 @@ export const getCustomerOptions = asyncHandler(async (req, res) => {
 });
 
 export const getCustomer = asyncHandler(async (req, res) => {
-  const allowed = await canAccessCustomer(req.user.role, req.user._id, req.params.id, req.user);
+  const customerId = req.params.id;
+  if (!customerId) {
+    res.status(400);
+    throw new Error('Customer ID is required');
+  }
+
+  const allowed = await canAccessCustomer(req.user.role, req.user._id, customerId, req.user);
   if (!allowed) {
     res.status(404);
-    throw new Error('Customer not found');
+    throw new Error('Customer not found or access denied');
   }
-  const customer = await Customer.findById(req.params.id)
+  const customer = await Customer.findById(customerId)
     .populate('company')
     .populate('leadRef', 'firstName lastName email phone company leadNumber status source')
     .populate('assignedTo', 'firstName lastName email avatar')
@@ -211,9 +217,8 @@ export const getCustomer = asyncHandler(async (req, res) => {
       .sort('-createdAt'),
     Project.find({ customer: customer._id })
       .populate('category', 'name code status')
-      .populate('manager', 'firstName lastName')
-      .populate('assignedManager', 'firstName lastName email role')
-    .populate('assignedTo', 'firstName lastName email')
+      .populate('manager', 'firstName lastName email role')
+      .populate('assignedTo', 'firstName lastName email')
       .sort('-createdAt'),
     Invoice.find({ customer: customer._id }).sort('-createdAt'),
     Payment.find({ customer: customer._id }).sort('-createdAt'),

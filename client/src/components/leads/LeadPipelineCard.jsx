@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import {
   GripVertical, Building2, Mail, DollarSign, UserCheck, Eye, Handshake,
-  User, Users, ChevronRight,
+  User, Users,
 } from 'lucide-react';
 import { formatCurrency } from '../../services/api';
 import { formatAssigneeName } from '../../constants/adminLeadViews';
@@ -180,13 +180,6 @@ export default function LeadPipelineCard({
             >
               <Eye size={14} />
             </button>
-            <Link
-              to={`/leads/${lead._id}`}
-              className="text-[10px] text-blue-400/80 hover:text-blue-300 inline-flex items-center gap-0.5 transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
-              Open <ChevronRight size={12} />
-            </Link>
           </div>
         </div>
       </div>

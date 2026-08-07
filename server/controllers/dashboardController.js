@@ -65,6 +65,21 @@ export const getDashboard = asyncHandler(async (req, res) => {
       customerId = linkedCustomer?._id ? String(linkedCustomer._id) : null;
     }
 
+    // Auto-link customer by email if not linked
+    if (!customerId && req.user.email) {
+      const customerByEmail = await Customer.findOne({ email: req.user.email }).select('_id portalUser').lean();
+      if (customerByEmail) {
+        customerId = String(customerByEmail._id);
+        // Update the customer record to link the portal user
+        if (!customerByEmail.portalUser) {
+          await Customer.findByIdAndUpdate(customerByEmail._id, { portalUser: req.user._id });
+        }
+        // Update the user record to link the customer
+        const User = (await import('../models/User.js')).default;
+        await User.findByIdAndUpdate(req.user._id, { customerRef: customerByEmail._id });
+      }
+    }
+
     if (!customerId) {
       return res.json({
         role,
@@ -88,8 +103,9 @@ export const getDashboard = asyncHandler(async (req, res) => {
         .populate('manager', 'firstName lastName email phone avatar role')
         .populate('supportAssignee', 'firstName lastName email phone avatar role')
         .populate('supportExecutiveAssignee', 'firstName lastName email phone avatar role')
+        .populate('assignedTo', 'firstName lastName email phone avatar role')
         .populate('category', 'name')
-        .select('name status workflowStage budget endDate startDate deliveredAt updatedAt manager supportAssignee supportExecutiveAssignee supportReviewStatus supportHandoffAt submittedToCustomerAt technologyStack category deliveryChecklist')
+        .select('name status workflowStage budget endDate startDate deliveredAt updatedAt manager supportAssignee supportExecutiveAssignee assignedTo supportReviewStatus supportHandoffAt submittedToCustomerAt technologyStack category deliveryChecklist technicalStatus')
         .sort('-updatedAt')
         .lean(),
       SupportTicket.countDocuments({ customer: customerId }),

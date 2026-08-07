@@ -19,6 +19,7 @@ import { taskStatusBadge } from '../../constants/supportTaskStatusFlows';
 import { ticketStatusMeta, TICKET_WORKER_NEXT_STATUSES } from '../../constants/ticketStatusFlows';
 import { supportTaskDetailPath } from '../../utils/supportTaskPaths';
 import { SUPPORT_REVIEW_STATUSES } from '../../constants/supportWorkflow';
+import SupportStaffDashboardCharts from './SupportStaffDashboardCharts';
 
 const SUMMARY = [
   { key: 'pendingSupportTasks', label: 'New Tasks', icon: ClipboardList, link: '/support/my-tasks', color: 'text-blue-400' },
@@ -200,6 +201,8 @@ export default function SupportMainDashboard({ supportOverview, roleStats }) {
           </div>
         </div>
       </div>
+
+      <SupportStaffDashboardCharts />
 
       <div>
         <h3 className="text-xs lg:text-sm font-semibold uppercase tracking-wider text-gray-400 mb-3">Summary</h3>

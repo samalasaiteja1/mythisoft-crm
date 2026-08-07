@@ -60,25 +60,25 @@ function CustomerTicketsList() {
   const execName = (u) => u ? `${u.firstName || ''} ${u.lastName || ''}`.trim() : '—';
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 lg:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">My Tickets</h1>
-          <p className="text-gray-400 mt-1">Track your support requests and replies.</p>
+          <h1 className="text-xl lg:text-2xl font-bold text-white">My Tickets</h1>
+          <p className="text-xs lg:text-sm text-gray-400 mt-1">Track your support requests and replies.</p>
         </div>
-        <Link to="/tickets/create" className="btn-primary inline-flex items-center gap-2 text-sm">
-          <Plus size={16} /> Create Ticket
+        <Link to="/tickets/create" className="btn-primary inline-flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+          <Plus size={14} lg:size={16} /> Create Ticket
         </Link>
       </div>
 
       <div className="card">
-        <div className="flex flex-wrap gap-2 mb-4 border-b border-myth-border pb-3">
+        <div className="flex flex-wrap gap-2 mb-3 lg:mb-4 border-b border-myth-border pb-2 lg:pb-3">
           {CUSTOMER_TICKET_TABS.map((tab) => (
             <button
               key={tab.key}
               type="button"
               onClick={() => setTab(tab.key)}
-              className={`px-3 py-1.5 rounded-lg text-sm transition-colors ${
+              className={`px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm transition-colors ${
                 activeTab === tab.key
                   ? 'bg-myth-accent/15 text-myth-accent border border-myth-accent/30'
                   : 'text-gray-400 hover:text-white hover:bg-myth-surface'
@@ -89,14 +89,14 @@ function CustomerTicketsList() {
           ))}
         </div>
 
-        <div className="flex flex-wrap gap-3 mb-4">
-          <select className="input-field sm:max-w-[160px]" value={filters.priority} onChange={(e) => setFilters({ ...filters, priority: e.target.value })}>
+        <div className="flex flex-wrap gap-2 lg:gap-3 mb-3 lg:mb-4">
+          <select className="input-field w-full sm:max-w-[140px] lg:max-w-[160px] text-xs lg:text-sm" value={filters.priority} onChange={(e) => setFilters({ ...filters, priority: e.target.value })}>
             <option value="">All priorities</option>
             {Object.entries(TICKET_PRIORITIES).map(([value, { label }]) => (
               <option key={value} value={value}>{label}</option>
             ))}
           </select>
-          <select className="input-field sm:max-w-[200px]" value={filters.project} onChange={(e) => setFilters({ ...filters, project: e.target.value })}>
+          <select className="input-field w-full sm:max-w-[180px] lg:max-w-[200px] text-xs lg:text-sm" value={filters.project} onChange={(e) => setFilters({ ...filters, project: e.target.value })}>
             <option value="">All projects</option>
             {projectOptions.map(([id, name]) => (
               <option key={id} value={id}>{name}</option>
@@ -105,7 +105,7 @@ function CustomerTicketsList() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-xs lg:text-sm">
             <thead>
               <tr>
                 <th className="table-header">Ticket ID</th>
@@ -122,16 +122,16 @@ function CustomerTicketsList() {
             </thead>
             <tbody>
               {filtered.length === 0 ? (
-                <tr><td colSpan={10} className="table-cell text-center text-gray-500 py-8">No tickets yet</td></tr>
+                <tr><td colSpan={10} className="table-cell text-center text-gray-500 py-6 lg:py-8">No tickets yet</td></tr>
               ) : filtered.map((item) => (
                 <tr key={item._id} className="border-t border-myth-border">
-                  <td className="table-cell font-mono text-myth-accent">{item.ticketNumber}</td>
+                  <td className="table-cell font-mono text-myth-accent text-[10px] lg:text-xs">{item.ticketNumber}</td>
                   <td className="table-cell text-gray-300">{item.project?.name || 'General'}</td>
                   <td className="table-cell text-white">{item.subject}</td>
                   <td className="table-cell text-gray-400">{item.category || '—'}</td>
                   <td className="table-cell"><StatusBadge status={item.priority} config={TICKET_PRIORITIES} /></td>
                   <td className="table-cell">
-                    <span className={`text-xs px-2 py-0.5 rounded-full ${ticketStatusMeta(item.status).color}`}>
+                    <span className={`text-[10px] lg:text-xs px-2 py-0.5 rounded-full ${ticketStatusMeta(item.status).color}`}>
                       {ticketStatusMeta(item.status).label}
                     </span>
                   </td>
@@ -139,7 +139,7 @@ function CustomerTicketsList() {
                   <td className="table-cell text-gray-400">{formatDateTime(item.createdAt)}</td>
                   <td className="table-cell text-gray-400">{formatDateTime(item.updatedAt)}</td>
                   <td className="table-cell">
-                    <Link to={`/tickets/${item._id}`} className="text-myth-accent hover:underline text-sm">View</Link>
+                    <Link to={`/tickets/${item._id}`} className="text-myth-accent hover:underline text-xs lg:text-sm">View</Link>
                   </td>
                 </tr>
               ))}

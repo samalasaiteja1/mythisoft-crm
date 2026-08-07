@@ -418,7 +418,7 @@ export default function TechManagerCreateTeamForm({
             )}
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Department *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Department *</label>
             <select
               value={form.departmentId}
               onChange={(e) => setForm({ ...form, departmentId: e.target.value })}
@@ -433,7 +433,7 @@ export default function TechManagerCreateTeamForm({
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Status *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Status *</label>
           <select
             value={form.status}
             onChange={(e) => setForm({ ...form, status: e.target.value })}
@@ -445,7 +445,7 @@ export default function TechManagerCreateTeamForm({
           </select>
         </div>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Description</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Description</label>
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -453,9 +453,9 @@ export default function TechManagerCreateTeamForm({
             placeholder="Optional team description"
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Start Date *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Start Date *</label>
             <input
               type="date"
               value={form.startDate}
@@ -465,7 +465,7 @@ export default function TechManagerCreateTeamForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">End Date</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">End Date</label>
             <input
               type="date"
               value={form.endDate}
@@ -474,7 +474,7 @@ export default function TechManagerCreateTeamForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Maximum Members</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Maximum Members</label>
             <input
               type="number"
               min={1}
@@ -487,22 +487,22 @@ export default function TechManagerCreateTeamForm({
         </div>
       </section>
 
-      <section className="space-y-4 border-b border-myth-border pb-5">
-        <h4 className="text-sm font-semibold text-white uppercase tracking-wide">Team Members</h4>
-        <p className="text-xs text-gray-500">
+      <section className="space-y-3 lg:space-y-4 border-b border-myth-border pb-4 lg:pb-5">
+        <h4 className="text-xs lg:text-sm font-semibold text-white uppercase tracking-wide">Team Members</h4>
+        <p className="text-[10px] lg:text-xs text-gray-500">
           Select a project first — members are loaded from employees admin assigned to that project.
           Pick a role, choose employees, then add them to your team.
         </p>
         {!form.projectId && (
-          <p className="text-xs text-amber-400/90">Choose a project above to load available members.</p>
+          <p className="text-[10px] lg:text-xs text-amber-400/90">Choose a project above to load available members.</p>
         )}
         {form.projectId && employeesLoading && <LoadingSpinner />}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 items-start">
-          <div className="card p-4 space-y-3 h-full">
-            <label className="block text-sm font-medium text-gray-300">Role *</label>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-4 items-start">
+          <div className="card p-3 lg:p-4 space-y-2 lg:space-y-3 h-full">
+            <label className="block text-xs lg:text-sm font-medium text-gray-300">Role *</label>
             {!form.projectId ? (
-              <p className="text-sm text-amber-400/90 border border-dashed border-myth-border rounded-lg px-3 py-2">
+              <p className="text-xs lg:text-sm text-amber-400/90 border border-dashed border-myth-border rounded-lg px-2 lg:px-3 py-2">
                 Select a project above — then role options will appear here.
               </p>
             ) : rolesLoading || employeesLoading ? (
@@ -523,65 +523,65 @@ export default function TechManagerCreateTeamForm({
               </select>
             )}
             {form.projectId && !employeesLoading && rolePickList.length === 0 && (
-              <p className="text-xs text-amber-400/80">
+              <p className="text-[10px] lg:text-xs text-amber-400/80">
                 No roles found among project members. Ask admin to assign staff with job roles on the project.
               </p>
             )}
             {selectedFilterRole && (
-              <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 text-sm text-gray-400">
+              <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-2 lg:p-3 text-xs lg:text-sm text-gray-400">
                 <p className="text-white font-medium">{selectedFilterRole.name}</p>
                 {selectedFilterRole.description && (
-                  <p className="text-xs mt-1">{selectedFilterRole.description}</p>
+                  <p className="text-[10px] lg:text-xs mt-1">{selectedFilterRole.description}</p>
                 )}
-                <p className="text-xs mt-2 text-myth-accent">
+                <p className="text-[10px] lg:text-xs mt-2 text-myth-accent">
                   {availableEmployees.length} available · {pendingIds.length} selected
                 </p>
               </div>
             )}
             {rolesFromAssignedMembers.length > 1 && (
-              <p className="text-xs text-gray-500">
+              <p className="text-[10px] lg:text-xs text-gray-500">
                 Each role shows only members admin assigned to this project with that role. Switch role to add others.
               </p>
             )}
           </div>
 
-          <div className="card p-4 space-y-3 h-full">
-            <label className="block text-sm font-medium text-gray-300">Team Members</label>
+          <div className="card p-3 lg:p-4 space-y-2 lg:space-y-3 h-full">
+            <label className="block text-xs lg:text-sm font-medium text-gray-300">Team Members</label>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="search"
                 value={memberSearch}
                 onChange={(e) => setMemberSearch(e.target.value)}
-                className="input-field flex-1 text-sm"
+                className="input-field flex-1 text-xs lg:text-sm"
                 placeholder="Search employee..."
                 disabled={!memberRoleFilterId}
               />
               <button
                 type="button"
                 onClick={() => setMemberSearch(memberSearch)}
-                className="btn-secondary shrink-0 text-sm"
+                className="btn-secondary shrink-0 text-xs lg:text-sm"
                 disabled={!memberRoleFilterId}
               >
                 Search
               </button>
             </div>
-            <p className="text-xs text-gray-500">
+            <p className="text-[10px] lg:text-xs text-gray-500">
               {memberRoleFilterId
                 ? `Employees with role: ${selectedFilterRole?.name || '—'}`
                 : 'Select a role on the left to see employees'}
             </p>
             <div className="rounded-lg border border-myth-border divide-y divide-myth-border/60 max-h-52 overflow-y-auto">
               {!form.projectId ? (
-                <p className="text-sm text-gray-500 px-3 py-4 text-center">Select a project first.</p>
+                <p className="text-xs lg:text-sm text-gray-500 px-2 lg:px-3 py-3 lg:py-4 text-center">Select a project first.</p>
               ) : !memberRoleFilterId ? (
-                <p className="text-sm text-gray-500 px-3 py-4 text-center">Select a role on the left.</p>
+                <p className="text-xs lg:text-sm text-gray-500 px-2 lg:px-3 py-3 lg:py-4 text-center">Select a role on the left.</p>
               ) : availableEmployees.length ? availableEmployees.map((e) => {
                 const roleLabel = memberDisplayRole(e);
                 const id = String(e._id);
                 return (
                   <label
                     key={e._id}
-                    className="flex items-center gap-3 px-3 py-2.5 hover:bg-myth-surface/30 cursor-pointer"
+                    className="flex items-center gap-2 lg:gap-3 px-2 lg:px-3 py-2 lg:py-2.5 hover:bg-myth-surface/30 cursor-pointer"
                   >
                     <input
                       type="checkbox"
@@ -589,13 +589,13 @@ export default function TechManagerCreateTeamForm({
                       onChange={() => togglePending(e._id)}
                       className="text-myth-accent rounded"
                     />
-                    <span className="text-sm text-white">
+                    <span className="text-xs lg:text-sm text-white">
                       {e.employeeId || '—'} — {e.firstName} {e.lastName} — {roleLabel}
                     </span>
                   </label>
                 );
               }) : (
-                <p className="text-sm text-gray-500 px-3 py-4 text-center">
+                <p className="text-xs lg:text-sm text-gray-500 px-2 lg:px-3 py-3 lg:py-4 text-center">
                   {memberOptions.length
                     ? `No members with role “${selectedFilterRole?.name || ''}” on this project. Try another role.`
                     : 'No members assigned to this project yet. Ask admin to assign technical staff on the project page.'}
@@ -605,7 +605,7 @@ export default function TechManagerCreateTeamForm({
             <button
               type="button"
               onClick={addSelectedMembers}
-              className="btn-secondary text-sm w-full sm:w-auto"
+              className="btn-secondary text-xs lg:text-sm w-full sm:w-auto"
               disabled={!memberRoleFilterId || !pendingIds.length}
             >
               Add Selected Members
@@ -614,16 +614,16 @@ export default function TechManagerCreateTeamForm({
         </div>
 
         <div>
-          <p className="text-xs text-gray-500 mb-2">Selected Team Members ({selectedMembers.length})</p>
+          <p className="text-[10px] lg:text-xs text-gray-500 mb-2">Selected Team Members ({selectedMembers.length})</p>
           {selectedMembers.length ? (
             <div className="overflow-x-auto rounded-lg border border-myth-border">
-              <table className="w-full text-sm">
+              <table className="w-full text-xs lg:text-sm">
                 <thead className="bg-myth-surface/50 text-gray-400 text-left">
                   <tr>
-                    <th className="px-3 py-2 font-medium">Employee ID</th>
-                    <th className="px-3 py-2 font-medium">Employee Name</th>
-                    <th className="px-3 py-2 font-medium">Role</th>
-                    <th className="px-3 py-2 font-medium">Action</th>
+                    <th className="px-2 lg:px-3 py-2 font-medium">Employee ID</th>
+                    <th className="px-2 lg:px-3 py-2 font-medium">Employee Name</th>
+                    <th className="px-2 lg:px-3 py-2 font-medium">Role</th>
+                    <th className="px-2 lg:px-3 py-2 font-medium">Action</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-myth-border/60">
@@ -631,24 +631,24 @@ export default function TechManagerCreateTeamForm({
                     const id = String(e._id);
                     return (
                       <tr key={e._id} className="text-white">
-                        <td className="px-3 py-2 font-mono text-xs text-gray-300">{e.employeeId || '—'}</td>
-                        <td className="px-3 py-2">{e.firstName} {e.lastName}</td>
-                        <td className="px-3 py-2">
+                        <td className="px-2 lg:px-3 py-2 font-mono text-[10px] lg:text-xs text-gray-300">{e.employeeId || '—'}</td>
+                        <td className="px-2 lg:px-3 py-2">{e.firstName} {e.lastName}</td>
+                        <td className="px-2 lg:px-3 py-2">
                           <select
                             value={form.memberRoles[id] || defaultMemberRole(e, memberRoleOptions)}
                             onChange={(ev) => setMemberRole(e._id, ev.target.value)}
-                            className="input-field text-sm py-1 min-w-[160px]"
+                            className="input-field text-xs lg:text-sm py-1 min-w-[140px] lg:min-w-[160px]"
                           >
                             {memberRoleOptions.map((r) => (
                               <option key={r} value={r}>{r}</option>
                             ))}
                           </select>
                         </td>
-                        <td className="px-3 py-2">
+                        <td className="px-2 lg:px-3 py-2">
                           <button
                             type="button"
                             onClick={() => removeMember(e._id)}
-                            className="text-sm text-red-400 hover:text-red-300"
+                            className="text-xs lg:text-sm text-red-400 hover:text-red-300"
                           >
                             Remove
                           </button>
@@ -660,7 +660,7 @@ export default function TechManagerCreateTeamForm({
               </table>
             </div>
           ) : (
-            <p className="text-sm text-gray-500 border border-dashed border-myth-border rounded-lg px-3 py-4 text-center">
+            <p className="text-xs lg:text-sm text-gray-500 border border-dashed border-myth-border rounded-lg px-2 lg:px-3 py-3 lg:py-4 text-center">
               No members added yet. Select a role, choose employees, and click Add Selected Members.
             </p>
           )}
@@ -668,7 +668,7 @@ export default function TechManagerCreateTeamForm({
       </section>
 
       <section className="space-y-2">
-        <h4 className="text-sm font-semibold text-white uppercase tracking-wide">Remarks</h4>
+        <h4 className="text-xs lg:text-sm font-semibold text-white uppercase tracking-wide">Remarks</h4>
         <textarea
           value={form.remarks}
           onChange={(e) => setForm({ ...form, remarks: e.target.value })}
@@ -677,7 +677,7 @@ export default function TechManagerCreateTeamForm({
         />
       </section>
 
-      <div className="flex flex-wrap gap-3 pt-2 border-t border-myth-border">
+      <div className="flex flex-wrap gap-2 lg:gap-3 pt-2 border-t border-myth-border">
         <button type="submit" disabled={submitting} className="btn-primary">
           {submitting ? 'Saving…' : 'Save'}
         </button>

@@ -89,7 +89,7 @@ const projectStatusLabel = (status) =>
   (status || '—').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
 const sectionTitle = (text) => (
-  <h4 className="text-sm font-semibold text-white uppercase tracking-wide border-b border-myth-border pb-2">
+  <h4 className="text-xs lg:text-sm font-semibold text-white uppercase tracking-wide border-b border-myth-border pb-2">
     {text}
   </h4>
 );
@@ -417,16 +417,16 @@ export default function TechManagerMilestoneForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-h-[75vh] overflow-y-auto pr-1">
-      <section className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6 max-h-[75vh] overflow-y-auto pr-1">
+      <section className="space-y-3 lg:space-y-4">
         {sectionTitle('Project Information')}
-        <p className="text-xs text-gray-500">
+        <p className="text-[10px] lg:text-xs text-gray-500">
           {form.projectId
             ? 'Customer, category, and technical manager come from admin project setup.'
             : 'Select a project first. Customer, category, and technical manager come from admin project setup.'}
         </p>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Project *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Project *</label>
           <select
             value={form.projectId}
             onChange={(e) => handleProjectChange(e.target.value)}
@@ -442,35 +442,35 @@ export default function TechManagerMilestoneForm({
           </select>
         </div>
         {form.projectId && (
-          <div className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-4 space-y-3">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="rounded-lg border border-cyan-500/20 bg-cyan-500/5 p-3 lg:p-4 space-y-2 lg:space-y-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Customer</label>
-                <p className="text-sm text-white">{customerDisplay(projectDetail)}</p>
+                <label className="block text-[10px] lg:text-xs text-gray-500 mb-1">Customer</label>
+                <p className="text-xs lg:text-sm text-white">{customerDisplay(projectDetail)}</p>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Project Category</label>
-                <p className="text-sm text-white">
+                <label className="block text-[10px] lg:text-xs text-gray-500 mb-1">Project Category</label>
+                <p className="text-xs lg:text-sm text-white">
                   {projectDetail ? categoryLabel(projectDetail.category) || '—' : '—'}
                 </p>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Technical Manager</label>
-                <p className="text-sm text-white">{resolveTechnicalManagerDisplay()}</p>
-                <p className="text-[11px] text-gray-500 mt-0.5">
+                <label className="block text-[10px] lg:text-xs text-gray-500 mb-1">Technical Manager</label>
+                <p className="text-xs lg:text-sm text-white">{resolveTechnicalManagerDisplay()}</p>
+                <p className="text-[10px] lg:text-[11px] text-gray-500 mt-0.5">
                   {managerDisplay(projectDetail) === '—' && isTechManager
                     ? 'Not set on project — you will be recorded as technical manager for this milestone'
                     : 'Set by admin on the project — not editable here'}
                 </p>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Project Status</label>
-                <p className="text-sm text-white capitalize">{projectStatusLabel(projectDetail?.status)}</p>
+                <label className="block text-[10px] lg:text-xs text-gray-500 mb-1">Project Status</label>
+                <p className="text-xs lg:text-sm text-white capitalize">{projectStatusLabel(projectDetail?.status)}</p>
               </div>
             </div>
             <div>
-              <label className="block text-xs text-gray-500 mb-1">Assigned Engineers</label>
-              <p className="text-sm text-cyan-300">
+              <label className="block text-[10px] lg:text-xs text-gray-500 mb-1">Assigned Engineers</label>
+              <p className="text-xs lg:text-sm text-cyan-300">
                 {(projectDetail?.assignedTo || []).length
                   ? `${(projectDetail.assignedTo || []).length} member(s) on project team`
                   : 'No engineers assigned yet — ask admin to assign on project page'}
@@ -480,13 +480,13 @@ export default function TechManagerMilestoneForm({
         )}
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-3 lg:space-y-4">
         {sectionTitle('Milestone Information')}
-        <p className="text-xs text-gray-500">
+        <p className="text-[10px] lg:text-xs text-gray-500">
           A milestone is a major phase for this project (e.g. Frontend Development). Create tasks after saving.
         </p>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Milestone Name *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Milestone Name *</label>
           <input
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -495,9 +495,9 @@ export default function TechManagerMilestoneForm({
             required
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Milestone Type *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Milestone Type *</label>
             <select
               value={form.milestoneType}
               onChange={(e) => setForm({ ...form, milestoneType: e.target.value })}
@@ -511,7 +511,7 @@ export default function TechManagerMilestoneForm({
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Priority *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Priority *</label>
             <select
               value={form.priority}
               onChange={(e) => setForm({ ...form, priority: e.target.value })}
@@ -525,7 +525,7 @@ export default function TechManagerMilestoneForm({
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Description</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Description</label>
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -533,9 +533,9 @@ export default function TechManagerMilestoneForm({
             placeholder="Milestone details"
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Start Date *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Start Date *</label>
             <input
               type="date"
               value={form.startDate}
@@ -545,7 +545,7 @@ export default function TechManagerMilestoneForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">End Date *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">End Date *</label>
             <input
               type="date"
               value={form.endDate}
@@ -555,7 +555,7 @@ export default function TechManagerMilestoneForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Estimated Duration (Days)</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Estimated Duration (Days)</label>
             <input
               type="number"
               min={0}
@@ -566,9 +566,9 @@ export default function TechManagerMilestoneForm({
             />
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Status *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Status *</label>
             <select
               value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value })}
@@ -581,7 +581,7 @@ export default function TechManagerMilestoneForm({
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Progress (%)</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Progress (%)</label>
             <input
               type="number"
               min={0}
@@ -592,7 +592,7 @@ export default function TechManagerMilestoneForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Parent Milestone (Optional)</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Parent Milestone (Optional)</label>
             <select
               value={form.parentMilestoneId}
               onChange={(e) => setForm({ ...form, parentMilestoneId: e.target.value })}
@@ -608,13 +608,13 @@ export default function TechManagerMilestoneForm({
         </div>
       </section>
 
-      <section className="space-y-4">
+      <section className="space-y-3 lg:space-y-4">
         {sectionTitle('Milestone Team')}
-        <p className="text-xs text-gray-500">
+        <p className="text-[10px] lg:text-xs text-gray-500">
           Optional: link a staff team, then choose which project engineers work on this milestone phase.
         </p>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Linked Staff Team (Optional)</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Linked Staff Team (Optional)</label>
           <select
             value={form.staffRoleId}
             onChange={(e) => handleTeamChange(e.target.value)}
@@ -638,10 +638,10 @@ export default function TechManagerMilestoneForm({
         )}
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Dependencies')}
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Depends On (Optional)</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Depends On (Optional)</label>
           <select
             value={form.dependsOnId}
             onChange={(e) => setForm({ ...form, dependsOnId: e.target.value })}
@@ -656,11 +656,11 @@ export default function TechManagerMilestoneForm({
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Attachments')}
-        <label className="flex items-center gap-3 px-4 py-3 rounded-lg border border-myth-border bg-myth-surface/30 cursor-pointer hover:border-myth-accent/40">
-          <Upload size={18} className="text-gray-500 shrink-0" />
-          <span className="text-sm text-gray-400">Upload Documents</span>
+        <label className="flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 rounded-lg border border-myth-border bg-myth-surface/30 cursor-pointer hover:border-myth-accent/40">
+          <Upload size={14} lg:size={18} className="text-gray-500 shrink-0" />
+          <span className="text-xs lg:text-sm text-gray-400">Upload Documents</span>
           <input
             type="file"
             multiple
@@ -669,7 +669,7 @@ export default function TechManagerMilestoneForm({
           />
         </label>
         {pendingFiles.length > 0 && (
-          <ul className="text-xs text-gray-400 space-y-1">
+          <ul className="text-[10px] lg:text-xs text-gray-400 space-y-1">
             {pendingFiles.map((f) => (
               <li key={f.name}>{f.name}</li>
             ))}
@@ -687,7 +687,7 @@ export default function TechManagerMilestoneForm({
         />
       </section>
 
-      <div className="flex flex-wrap gap-3 pt-2 border-t border-myth-border">
+      <div className="flex flex-wrap gap-2 lg:gap-3 pt-2 border-t border-myth-border">
         <button type="submit" disabled={submitting} className="btn-primary">
           {submitting ? 'Saving…' : 'Save'}
         </button>

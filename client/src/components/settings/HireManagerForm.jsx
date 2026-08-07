@@ -195,21 +195,21 @@ export default function HireManagerForm() {
 
   return (
     <div className="max-w-2xl">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="p-2.5 rounded-xl bg-blue-500/15 border border-blue-500/20">
-          <ShieldCheck size={20} className="text-blue-400" />
+      <div className="flex items-center gap-2 lg:gap-3 mb-4 lg:mb-6">
+        <div className="p-2 lg:p-2.5 rounded-xl bg-blue-500/15 border border-blue-500/20">
+          <ShieldCheck size={16} lg:size={20} className="text-blue-400" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-white">Hire Manager</h3>
-          <p className="text-xs text-gray-400 mt-0.5">
+          <h3 className="text-base lg:text-lg font-bold text-white">Hire Manager</h3>
+          <p className="text-[10px] lg:text-xs text-gray-400 mt-0.5">
             One manager per department (Sales, Technical, Support). They receive the correct manager dashboard.
           </p>
         </div>
       </div>
 
       {lastHired && (
-        <div className="flex items-center gap-2 mb-5 p-3 rounded-lg bg-green-500/10 border border-green-500/25 text-green-400 text-sm">
-          <CheckCircle2 size={16} className="shrink-0" />
+        <div className="flex items-center gap-2 mb-4 lg:mb-5 p-3 rounded-lg bg-green-500/10 border border-green-500/25 text-green-400 text-xs lg:text-sm">
+          <CheckCircle2 size={14} lg:size={16} className="shrink-0" />
           <span>
             <strong>{lastHired.name}</strong> hired as <strong>{lastHired.dept} Manager</strong>
             {lastHired.team ? ` · ${lastHired.team}` : ''}.
@@ -218,38 +218,38 @@ export default function HireManagerForm() {
       )}
 
       {noManagerTeams && (
-        <div className="mb-5 p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-200 text-sm">
+        <div className="mb-4 lg:mb-5 p-3 rounded-lg border border-amber-500/30 bg-amber-500/10 text-amber-200 text-xs lg:text-sm">
           No manager teams found. Create manager teams (e.g. Sales Managers, Tech Managers) in{' '}
           <Link to="/settings?tab=teams" className="underline font-medium">Settings → Teams</Link> first.
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-6" autoComplete="off">
+      <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6" autoComplete="off">
         <div className="flex flex-wrap gap-2">
           {MANAGER_FORM_STEPS.map((step) => (
             <button
               key={step.id}
               type="button"
               onClick={() => step.id <= formStep && setFormStep(step.id)}
-              className={`flex-1 min-w-[120px] px-3 py-2 rounded-lg text-left border transition-colors ${
+              className={`flex-1 min-w-[100px] lg:min-w-[120px] px-2 lg:px-3 py-2 rounded-lg text-left border transition-colors ${
                 formStep === step.id
                   ? 'border-blue-400 bg-blue-500/10'
                   : 'border-myth-border bg-myth-surface/30'
               }`}
             >
-              <p className={`text-xs font-semibold ${formStep === step.id ? 'text-blue-400' : 'text-gray-400'}`}>
+              <p className={`text-[10px] lg:text-xs font-semibold ${formStep === step.id ? 'text-blue-400' : 'text-gray-400'}`}>
                 Step {step.id}
               </p>
-              <p className="text-sm text-white font-medium">{step.label}</p>
+              <p className="text-xs lg:text-sm text-white font-medium">{step.label}</p>
               <p className="text-[10px] text-gray-500 mt-0.5 hidden sm:block">{step.hint}</p>
             </button>
           ))}
         </div>
 
         {formStep === 1 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Employee ID *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Employee ID *</label>
               <input
                 value={form.employeeId}
                 onChange={(e) => field('employeeId', e.target.value)}
@@ -259,7 +259,7 @@ export default function HireManagerForm() {
               />
             </div>
             <div className="sm:col-span-2">
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Full Name *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Full Name *</label>
               <input
                 value={form.fullName}
                 onChange={(e) => field('fullName', e.target.value)}
@@ -269,7 +269,7 @@ export default function HireManagerForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Email *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Email *</label>
               <input
                 type="email"
                 value={form.email}
@@ -278,16 +278,16 @@ export default function HireManagerForm() {
                 placeholder={PLACEHOLDERS.hireManager.email}
                 required
               />
-              {emailChecking && <p className="text-xs text-gray-500 mt-1">Checking email…</p>}
+              {emailChecking && <p className="text-[10px] lg:text-xs text-gray-500 mt-1">Checking email…</p>}
               {emailStatus?.available === false && (
-                <p className="text-xs text-red-400 mt-1">{emailStatus.message}</p>
+                <p className="text-[10px] lg:text-xs text-red-400 mt-1">{emailStatus.message}</p>
               )}
               {emailStatus?.available === true && (
-                <p className="text-xs text-green-400 mt-1">Email is available</p>
+                <p className="text-[10px] lg:text-xs text-green-400 mt-1">Email is available</p>
               )}
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Phone *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Phone *</label>
               <input
                 type="tel"
                 value={form.phone}
@@ -298,7 +298,7 @@ export default function HireManagerForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Joining Date *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Joining Date *</label>
               <input
                 type="date"
                 value={form.joiningDate}
@@ -308,7 +308,7 @@ export default function HireManagerForm() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Employment Type</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Employment Type</label>
               <select
                 value={form.employmentType}
                 onChange={(e) => field('employmentType', e.target.value)}
@@ -333,9 +333,9 @@ export default function HireManagerForm() {
         )}
 
         {formStep === 3 && (
-          <div className="space-y-4">
+          <div className="space-y-3 lg:space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1.5">Password *</label>
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-1.5">Password *</label>
               <div className="relative">
                 <input
                   type={showPass ? 'text' : 'password'}
@@ -352,14 +352,14 @@ export default function HireManagerForm() {
                   onClick={() => setShowPass((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
                 >
-                  {showPass ? <EyeOff size={15} /> : <Eye size={15} />}
+                  {showPass ? <EyeOff size={13} lg:size={15} /> : <Eye size={13} lg:size={15} />}
                 </button>
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-              <div className="flex items-center gap-8">
-                <label className="flex items-center gap-2.5 text-sm text-gray-300 cursor-pointer">
+              <label className="block text-xs lg:text-sm font-medium text-gray-300 mb-2">Status</label>
+              <div className="flex items-center gap-6 lg:gap-8">
+                <label className="flex items-center gap-2 lg:gap-2.5 text-xs lg:text-sm text-gray-300 cursor-pointer">
                   <input
                     type="radio"
                     name="hireManagerStatus"
@@ -369,7 +369,7 @@ export default function HireManagerForm() {
                   />
                   Active
                 </label>
-                <label className="flex items-center gap-2.5 text-sm text-gray-300 cursor-pointer">
+                <label className="flex items-center gap-2 lg:gap-2.5 text-xs lg:text-sm text-gray-300 cursor-pointer">
                   <input
                     type="radio"
                     name="hireManagerStatus"
@@ -381,7 +381,7 @@ export default function HireManagerForm() {
                 </label>
               </div>
             </div>
-            <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 text-sm text-gray-400">
+            <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 text-xs lg:text-sm text-gray-400">
               <p>
                 <span className="text-white">{form.fullName || '—'}</span>
                 · {form.departmentKey ? managerTypeLabel(form.departmentKey) : '—'}
@@ -391,7 +391,7 @@ export default function HireManagerForm() {
           </div>
         )}
 
-        <div className="flex gap-3 justify-between pt-2 border-t border-myth-border">
+        <div className="flex gap-2 lg:gap-3 justify-between pt-2 border-t border-myth-border">
           <button type="button" onClick={resetForm} className="btn-secondary">Clear</button>
           <div className="flex gap-2">
             {formStep > 1 && (

@@ -255,7 +255,28 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
     } catch { toast.error('Export failed'); }
   };
 
-  const handleImport = () => toast('Import CSV — connect file upload in settings', { icon: 'ℹ️' });
+  const handleImport = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    if (!file.name.endsWith('.csv')) {
+      toast.error('Please upload a CSV file');
+      return;
+    }
+
+    try {
+      const { data } = await leadsAPI.importCsv(file);
+      toast.success(`Import completed: ${data.results.created} leads created`);
+      if (data.results.errors.length > 0) {
+        toast.error(`${data.results.errors.length} errors occurred during import`);
+      }
+      fetchLeads();
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Import failed');
+    } finally {
+      event.target.value = '';
+    }
+  };
 
   const handleConvertToDeal = (id) => {
     navigate(`/deals/create?leadId=${id}`);
@@ -358,7 +379,16 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
                 </Link>
               )}
               <button onClick={handleExport} className="btn-secondary text-sm flex items-center gap-2"><Download size={16} /> Export</button>
-              <button onClick={handleImport} className="btn-secondary text-sm flex items-center gap-2"><Upload size={16} /> Import</button>
+              <input
+                type="file"
+                accept=".csv"
+                onChange={handleImport}
+                style={{ display: 'none' }}
+                id="import-csv-input"
+              />
+              <label htmlFor="import-csv-input" className="btn-secondary text-sm flex items-center gap-2 cursor-pointer">
+                <Upload size={16} /> Import
+              </label>
               <button onClick={openCreate} className="btn-primary text-sm flex items-center gap-2"><Plus size={18} /> Add Lead</button>
             </div>
           )}
@@ -378,7 +408,7 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
               key={stat.key}
               type="button"
               onClick={() => setAssignmentFilter(stat.key)}
-              className={`p-3 rounded-xl border text-left transition-colors hover:border-blue-500/35 ${
+              className={`p-2 lg:p-3 rounded-xl border text-left transition-colors hover:border-blue-500/35 ${
                 assignmentFilter === stat.key
                   ? 'border-blue-500/40 bg-blue-500/10'
                   : stat.highlight
@@ -386,20 +416,20 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
                     : 'border-myth-border bg-myth-surface/40'
               }`}
             >
-              <p className="text-xs text-gray-500">{stat.label}</p>
-              <p className={`text-2xl font-bold mt-0.5 ${stat.color}`}>{stat.value}</p>
+              <p className="text-[10px] lg:text-xs text-gray-500">{stat.label}</p>
+              <p className={`text-xl lg:text-2xl font-bold mt-0.5 ${stat.color}`}>{stat.value}</p>
             </button>
           ))}
         </div>
       )}
 
       {isAdmin && unsignedOnly && (
-        <div className="card border-red-500/20 bg-red-500/5 py-3 px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="card border-red-500/20 bg-red-500/5 py-2 lg:py-3 px-3 lg:px-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 lg:gap-3">
           <div>
-            <p className="text-xs text-gray-400">Fully unassigned — no manager or sales executive</p>
-            <p className="text-2xl font-bold text-red-400">{visibleLeads.length}</p>
+            <p className="text-[10px] lg:text-xs text-gray-400">Fully unassigned — no manager or sales executive</p>
+            <p className="text-xl lg:text-2xl font-bold text-red-400">{visibleLeads.length}</p>
           </div>
-          <div className="flex flex-wrap gap-3 text-sm">
+          <div className="flex flex-wrap gap-2 lg:gap-3 text-xs lg:text-sm">
             <Link to="/leads/assign-manager" className="text-blue-300 hover:underline">Assign to manager →</Link>
             <Link to="/leads/assigned" className="text-gray-400 hover:text-blue-300">View assigned leads →</Link>
           </div>
@@ -407,18 +437,18 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
       )}
 
       {isAdmin && assignedOnly && (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 lg:gap-3">
           {[
             { label: 'Total assigned', value: visibleLeads.length, color: 'text-white' },
             { label: 'Manager only', value: assignmentCounts.manager_only, color: 'text-amber-400' },
             { label: 'Sales only', value: assignmentCounts.sales_only, color: 'text-blue-400' },
             { label: 'Manager + sales', value: assignmentCounts.both, color: 'text-green-400', link: '/reports/leads' },
           ].map((stat) => (
-            <div key={stat.label} className="p-3 rounded-xl border border-myth-border bg-myth-surface/40">
-              <p className="text-xs text-gray-500">{stat.label}</p>
-              <p className={`text-2xl font-bold mt-0.5 ${stat.color}`}>{stat.value}</p>
+            <div key={stat.label} className="p-2 lg:p-3 rounded-xl border border-myth-border bg-myth-surface/40">
+              <p className="text-[10px] lg:text-xs text-gray-500">{stat.label}</p>
+              <p className={`text-xl lg:text-2xl font-bold mt-0.5 ${stat.color}`}>{stat.value}</p>
               {stat.link && (
-                <Link to={stat.link} className="text-xs text-blue-400 hover:underline mt-1 inline-block">Lead Analytics →</Link>
+                <Link to={stat.link} className="text-[10px] lg:text-xs text-blue-400 hover:underline mt-1 inline-block">Lead Analytics →</Link>
               )}
             </div>
           ))}
@@ -426,7 +456,7 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
       )}
 
       {(isAdmin || isManager) && canAssign && (
-        <div className="card border-blue-500/15 bg-blue-500/5 text-sm text-gray-400">
+        <div className="card border-blue-500/15 bg-blue-500/5 text-xs lg:text-sm text-gray-400">
           <span className="text-blue-300 font-medium">Workflow:</span>{' '}
           <Link to="/leads/create" className="text-blue-300 hover:underline">Create lead</Link>
           {isAdmin && <> → <Link to="/leads/assign-manager" className="text-blue-300 hover:underline">Assign to manager</Link></>}
@@ -437,33 +467,33 @@ export default function Leads({ assignedOnly = false, unsignedOnly = false }) {
       )}
 
       <div className="card border border-myth-border/80">
-        <p className="text-xs text-gray-500 mb-3 uppercase tracking-wide flex items-center gap-1.5">
-          <TrendingUp size={12} className="text-blue-400" /> Lead pipeline
+        <p className="text-[10px] lg:text-xs text-gray-500 mb-2 lg:mb-3 uppercase tracking-wide flex items-center gap-1 lg:gap-1.5">
+          <TrendingUp size={10} lg:size={12} className="text-blue-400" /> Lead pipeline
         </p>
         <WorkflowProgress stages={LEAD_WORKFLOW_STAGES} currentStage={statusFilter || 'new'} />
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-2 lg:gap-3">
         <div className="flex-1"><SearchBar value={search} onChange={setSearch} placeholder="Search leads..." /></div>
         <div className="flex items-center gap-2">
-          <Filter size={14} className="text-gray-500 hidden sm:block" />
-          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="input-field w-full sm:w-48">
+          <Filter size={12} lg:size={14} className="text-gray-500 hidden sm:block" />
+          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="input-field w-full sm:w-40 lg:w-48 text-xs lg:text-sm">
             <option value="">All Stages</option>
             {LEAD_SELECTABLE_STAGES.map((s) => <option key={s.key} value={s.key}>{s.label}</option>)}
           </select>
         </div>
         <div className="flex rounded-lg border border-myth-border overflow-hidden shrink-0">
-          <button type="button" onClick={() => setViewMode('pipeline')} className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === 'pipeline' ? 'bg-blue-500/15 text-blue-300' : 'text-gray-400 hover:text-white'}`}>
-            <LayoutGrid size={16} /> Pipeline
+          <button type="button" onClick={() => setViewMode('pipeline')} className={`px-2 lg:px-3 py-2 flex items-center gap-1 lg:gap-1.5 text-xs lg:text-sm transition-colors ${viewMode === 'pipeline' ? 'bg-blue-500/15 text-blue-300' : 'text-gray-400 hover:text-white'}`}>
+            <LayoutGrid size={14} lg:size={16} /> Pipeline
           </button>
-          <button type="button" onClick={() => setViewMode('table')} className={`px-3 py-2 flex items-center gap-1.5 text-sm transition-colors ${viewMode === 'table' ? 'bg-blue-500/15 text-blue-300' : 'text-gray-400 hover:text-white'}`}>
-            <List size={16} /> Table
+          <button type="button" onClick={() => setViewMode('table')} className={`px-2 lg:px-3 py-2 flex items-center gap-1 lg:gap-1.5 text-xs lg:text-sm transition-colors ${viewMode === 'table' ? 'bg-blue-500/15 text-blue-300' : 'text-gray-400 hover:text-white'}`}>
+            <List size={14} lg:size={16} /> Table
           </button>
         </div>
       </div>
 
       {loading ? <LoadingSpinner /> : viewMode === 'pipeline' ? (
-        <div className="flex gap-3 overflow-x-auto pb-4">
+        <div className="flex gap-2 lg:gap-3 overflow-x-auto pb-4">
           {LEAD_SELECTABLE_STAGES.map((stage) => {
             const stageLeads = getLeadsByStage(stage.key);
             return (

@@ -64,9 +64,17 @@ export default function CustomerProfile() {
   const [requirementsByKey, setRequirementsByKey] = useState({});
 
   useEffect(() => {
+    if (!id) {
+      toast.error('Invalid customer ID');
+      setLoading(false);
+      return;
+    }
     customersAPI.getOne(id)
       .then(({ data: d }) => setData(d))
-      .catch(() => toast.error('Unable to load customer'))
+      .catch((err) => {
+        console.error('Failed to load customer:', err);
+        toast.error(err.response?.data?.message || 'Unable to load customer');
+      })
       .finally(() => setLoading(false));
   }, [id]);
 

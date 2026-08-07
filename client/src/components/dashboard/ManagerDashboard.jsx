@@ -9,6 +9,7 @@ import { formatCurrency } from '../../services/api';
 import LeadDealFollowUpGuide from './LeadDealFollowUpGuide';
 import FollowUpSummaryPanel from './FollowUpSummaryPanel';
 import SalesManagerLeadsDealsPanel from './SalesManagerLeadsDealsPanel';
+import SalesManagerDashboardCharts from './SalesManagerDashboardCharts';
 
 const DEPT_COLORS = {
   sales: 'border-blue-500/40 bg-blue-500/10',
@@ -56,6 +57,11 @@ export default function ManagerDashboard({ departmentOverview, salesOverview, ro
 
   return (
     <div className="space-y-4">
+      {/* Charts Section for Sales Manager */}
+      {department === 'sales' && (
+        <SalesManagerDashboardCharts salesOverview={salesOverview} roleStats={roleStats} />
+      )}
+
       {/* Hero + pipeline */}
       <div className="card border-purple-500/20 overflow-hidden">
         <div className="relative p-4 sm:p-5 lg:p-6 border-b border-myth-border/60 bg-gradient-to-br from-purple-500/10 via-myth-accent/5 to-blue-500/5">

@@ -285,15 +285,15 @@ export default function Tasks({ overdueOnly = false }) {
 
   return (
 
-    <div className="space-y-6">
+    <div className="space-y-4 lg:space-y-6">
 
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 lg:gap-4">
 
         <div>
 
-          <h1 className="text-2xl font-bold text-white">{overdueOnly ? 'Overdue Tasks' : 'Tasks & Reminders'}</h1>
+          <h1 className="text-xl lg:text-2xl font-bold text-white">{overdueOnly ? 'Overdue Tasks' : 'Tasks & Reminders'}</h1>
 
-          <p className="text-gray-400 mt-1">
+          <p className="text-xs lg:text-sm text-gray-400 mt-1">
 
             {overdueOnly ? 'Tasks past their due date' : 'Create, assign, and track tasks across projects, milestones, and teams'}
 
@@ -301,19 +301,19 @@ export default function Tasks({ overdueOnly = false }) {
 
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 lg:gap-3">
 
           <div className="flex bg-myth-surface rounded-lg p-1">
 
-            <button onClick={() => setView('list')} className={`p-2 rounded ${view === 'list' ? 'bg-myth-accent/20 text-myth-accent' : 'text-gray-400'}`}><List size={18} /></button>
+            <button onClick={() => setView('list')} className={`p-1.5 lg:p-2 rounded ${view === 'list' ? 'bg-myth-accent/20 text-myth-accent' : 'text-gray-400'}`}><List size={14} lg:size={18} /></button>
 
-            <button onClick={() => setView('calendar')} className={`p-2 rounded ${view === 'calendar' ? 'bg-myth-accent/20 text-myth-accent' : 'text-gray-400'}`}><Calendar size={18} /></button>
+            <button onClick={() => setView('calendar')} className={`p-1.5 lg:p-2 rounded ${view === 'calendar' ? 'bg-myth-accent/20 text-myth-accent' : 'text-gray-400'}`}><Calendar size={14} lg:size={18} /></button>
 
           </div>
 
-          <Link to="/dev-board" className="btn-secondary text-sm">Kanban Board</Link>
+          <Link to="/dev-board" className="btn-secondary text-xs lg:text-sm">Kanban Board</Link>
 
-          <button onClick={openCreate} className="btn-primary flex items-center gap-2"><Plus size={18} /> Create Task</button>
+          <button onClick={openCreate} className="btn-primary flex items-center gap-1 lg:gap-2 text-xs lg:text-sm"><Plus size={14} lg:size={18} /> Create Task</button>
 
         </div>
 
@@ -323,23 +323,23 @@ export default function Tasks({ overdueOnly = false }) {
 
       {detailTask && (
 
-        <div className="card border-myth-accent/30 space-y-3">
+        <div className="card border-myth-accent/30 space-y-2 lg:space-y-3">
 
-          <div className="flex justify-between items-start gap-4">
+          <div className="flex justify-between items-start gap-3 lg:gap-4">
 
             <div>
 
-              <h2 className="text-lg font-semibold text-white">{detailTask.title}</h2>
+              <h2 className="text-base lg:text-lg font-semibold text-white">{detailTask.title}</h2>
 
               {detailTask.taskType && (
 
-                <span className="text-xs text-gray-500 mt-1 inline-block">{detailTask.taskType}</span>
+                <span className="text-[10px] lg:text-xs text-gray-500 mt-1 inline-block">{detailTask.taskType}</span>
 
               )}
 
-              <p className="text-sm text-gray-400 mt-2">{detailTask.description || 'No description'}</p>
+              <p className="text-xs lg:text-sm text-gray-400 mt-2">{detailTask.description || 'No description'}</p>
 
-              <div className="flex flex-wrap gap-2 mt-3">
+              <div className="flex flex-wrap gap-2 mt-2 lg:mt-3">
 
                 <StatusBadge status={detailTask.priority} config={TASK_PRIORITIES} />
 
@@ -351,9 +351,9 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div className="flex items-center gap-2 shrink-0">
 
-              <button type="button" onClick={() => openEdit(detailTask)} className="btn-secondary text-sm inline-flex items-center gap-1">
+              <button type="button" onClick={() => openEdit(detailTask)} className="btn-secondary text-xs lg:text-sm inline-flex items-center gap-1">
 
-                <Pencil size={14} /> Edit
+                <Pencil size={12} lg:size={14} /> Edit
 
               </button>
 
@@ -365,11 +365,11 @@ export default function Tasks({ overdueOnly = false }) {
 
                 disabled={deletingId === detailTask._id}
 
-                className="btn-secondary text-sm text-red-400 hover:text-red-300 inline-flex items-center gap-1 disabled:opacity-50"
+                className="btn-secondary text-xs lg:text-sm text-red-400 hover:text-red-300 inline-flex items-center gap-1 disabled:opacity-50"
 
               >
 
-                <Trash2 size={14} /> Delete
+                <Trash2 size={12} lg:size={14} /> Delete
 
               </button>
 
@@ -377,11 +377,11 @@ export default function Tasks({ overdueOnly = false }) {
 
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 lg:gap-3 text-xs lg:text-sm">
 
             <div>
 
-              <p className="text-gray-500 text-xs">Project</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Project</p>
 
               <p className="text-gray-200">{renderProjectLabel(detailTask)}</p>
 
@@ -389,7 +389,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Milestone</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Milestone</p>
 
               <p className="text-gray-200">{detailTask.milestone?.name || '—'}</p>
 
@@ -397,7 +397,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Team</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Team</p>
 
               <p className="text-gray-200">{detailTask.staffRole?.name || '—'}</p>
 
@@ -405,7 +405,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Assignee</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Assignee</p>
 
               <p className="text-gray-200">
 
@@ -417,7 +417,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Start</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Start</p>
 
               <p className="text-gray-200">{detailTask.startDate ? formatDate(detailTask.startDate) : '—'}</p>
 
@@ -425,7 +425,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Due</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Due</p>
 
               <p className="text-gray-200">{detailTask.dueDate ? formatDate(detailTask.dueDate) : '—'}</p>
 
@@ -433,7 +433,7 @@ export default function Tasks({ overdueOnly = false }) {
 
             <div>
 
-              <p className="text-gray-500 text-xs">Est. Hours</p>
+              <p className="text-gray-500 text-[10px] lg:text-xs">Est. Hours</p>
 
               <p className="text-gray-200">{detailTask.estimatedHours ?? '—'}</p>
 
@@ -443,7 +443,7 @@ export default function Tasks({ overdueOnly = false }) {
 
           {detailTask.remarks && (
 
-            <p className="text-sm text-gray-400 border-t border-myth-border pt-3">{detailTask.remarks}</p>
+            <p className="text-xs lg:text-sm text-gray-400 border-t border-myth-border pt-2 lg:pt-3">{detailTask.remarks}</p>
 
           )}
 
@@ -459,7 +459,7 @@ export default function Tasks({ overdueOnly = false }) {
 
           {!overdueOnly && (
 
-            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="input-field w-48">
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="input-field w-36 lg:w-48 text-xs lg:text-sm">
 
               <option value="">All Statuses</option>
 
@@ -473,13 +473,13 @@ export default function Tasks({ overdueOnly = false }) {
 
           {loading ? <LoadingSpinner /> : (
 
-            <div className="space-y-3">
+            <div className="space-y-2 lg:space-y-3">
 
               {tasks.map((task) => (
 
                 <div key={task._id} className="card hover:border-myth-accent/30 transition-all">
 
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-start gap-2 lg:gap-4">
 
                     <button
 
@@ -489,11 +489,11 @@ export default function Tasks({ overdueOnly = false }) {
 
                     >
 
-                      <CheckCircle2 size={22} />
+                      <CheckCircle2 size={18} lg:size={22} />
 
                     </button>
 
-                    <div className="flex-1 min-w-0 space-y-2">
+                    <div className="flex-1 min-w-0 space-y-1.5 lg:space-y-2">
 
                       <div className="flex flex-wrap items-center gap-2">
 
@@ -521,13 +521,13 @@ export default function Tasks({ overdueOnly = false }) {
 
                       </div>
 
-                      {task.description && <p className="text-sm text-gray-400 line-clamp-2">{task.description}</p>}
+                      {task.description && <p className="text-xs lg:text-sm text-gray-400 line-clamp-2">{task.description}</p>}
 
-                      <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500">
+                      <div className="flex flex-wrap gap-x-3 lg:gap-x-4 gap-y-1 text-[10px] lg:text-xs text-gray-500">
 
                         <span className="flex items-center gap-1">
 
-                          <Layers size={12} /> {renderProjectLabel(task)}
+                          <Layers size={10} lg:size={12} /> {renderProjectLabel(task)}
 
                         </span>
 
@@ -535,7 +535,7 @@ export default function Tasks({ overdueOnly = false }) {
 
                           <span className="flex items-center gap-1">
 
-                            <Flag size={12} /> {task.milestone.name}
+                            <Flag size={10} lg:size={12} /> {task.milestone.name}
 
                           </span>
 
@@ -545,7 +545,7 @@ export default function Tasks({ overdueOnly = false }) {
 
                           <span className="flex items-center gap-1">
 
-                            <Users size={12} /> {task.staffRole.name}
+                            <Users size={10} lg:size={12} /> {task.staffRole.name}
 
                           </span>
 
@@ -571,7 +571,7 @@ export default function Tasks({ overdueOnly = false }) {
 
                           <span className="flex items-center gap-1">
 
-                            <Clock size={12} /> Due {formatDate(task.dueDate)}
+                            <Clock size={10} lg:size={12} /> Due {formatDate(task.dueDate)}
 
                           </span>
 
@@ -595,7 +595,7 @@ export default function Tasks({ overdueOnly = false }) {
 
                         onClick={() => openEdit(task)}
 
-                        className="p-1.5 rounded hover:bg-myth-accent/10 text-gray-400 hover:text-myth-accent"
+                        className="p-1 lg:p-1.5 rounded hover:bg-myth-accent/10 text-gray-400 hover:text-myth-accent"
 
                         title="Edit task"
 

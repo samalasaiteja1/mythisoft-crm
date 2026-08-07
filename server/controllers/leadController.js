@@ -264,6 +264,7 @@ export const createLead = asyncHandler(async (req, res) => {
 
   // Create customer portal user if password is provided
   let portalUser = null;
+  let customer = null;
   if (customerPassword && customerPassword.length >= 6) {
     const User = (await import('../models/User.js')).default;
     const existingUser = await User.findOne({ email: lead.email });
@@ -280,6 +281,41 @@ export const createLead = asyncHandler(async (req, res) => {
       });
       lead.portalUser = portalUser._id;
       await lead.save();
+      
+      // Create customer record if it doesn't exist
+      const existingCustomer = await Customer.findOne({ email: lead.email });
+      if (!existingCustomer) {
+        customer = await Customer.create({
+          firstName: lead.firstName,
+          lastName: lead.lastName,
+          email: lead.email,
+          phone: lead.phone,
+          company: lead.company,
+          title: lead.title,
+          industry: lead.industry,
+          leadRef: lead._id,
+          portalUser: portalUser._id,
+          createdBy: userId,
+          status: 'active',
+        });
+        lead.customerRef = customer._id;
+        await lead.save();
+        // Update portal user's customerRef to point to the customer
+        portalUser.customerRef = customer._id;
+        await portalUser.save();
+      } else {
+        customer = existingCustomer;
+        if (!customer.portalUser) {
+          customer.portalUser = portalUser._id;
+          await customer.save();
+        }
+        // Update portal user's customerRef if it's not set
+        if (!portalUser.customerRef) {
+          portalUser.customerRef = customer._id;
+          await portalUser.save();
+        }
+      }
+      
       await logActivity(userId, 'user', `Customer portal account created for ${lead.firstName} ${lead.lastName}`, { type: 'lead', id: lead._id });
     }
   }
@@ -604,6 +640,100 @@ export const exportLeads = asyncHandler(async (req, res) => {
   res.setHeader('Content-Disposition', 'attachment; filename=leads-export.csv');
   res.send(header + rows.join('\n'));
 });
+
+export const importLeads = asyncHandler(async (req, res) => {
+  const { role, _id: userId } = req.user;
+  if (!canPerformAction(role, 'leads', 'create')) {
+    res.status(403);
+    throw new Error('Not authorized to import leads');
+  }
+
+  if (!req.file) {
+    res.status(400);
+    throw new Error('No file uploaded');
+  }
+
+  const csvContent = req.file.buffer.toString('utf-8');
+  const lines = csvContent.split('\n').filter(line => line.trim());
+  
+  if (lines.length < 2) {
+    res.status(400);
+    throw new Error('CSV file is empty or invalid');
+  }
+
+  const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+  const results = { created: 0, errors: [] };
+
+  for (let i = 1; i < lines.length; i++) {
+    try {
+      const values = lines[i].split(',').map(v => v.trim().replace(/^"|"$/g, ''));
+      const leadData = {};
+      
+      headers.forEach((header, index) => {
+        if (header.includes('name') && !header.includes('company')) {
+          const nameParts = values[index].split(' ');
+          leadData.firstName = nameParts[0] || '';
+          leadData.lastName = nameParts.slice(1).join(' ') || '';
+        } else if (header.includes('company')) {
+          leadData.company = values[index] || '';
+        } else if (header.includes('email')) {
+          leadData.email = values[index] || '';
+        } else if (header.includes('phone')) {
+          leadData.phone = values[index] || '';
+        } else if (header.includes('source')) {
+          leadData.source = values[index] || '';
+        } else if (header.includes('status')) {
+          leadData.status = normalizeLeadStatus(values[index]);
+        }
+      });
+
+      if (!leadData.email) {
+        results.errors.push({ row: i + 1, message: 'Email is required' });
+        continue;
+      }
+
+      const existingLead = await Lead.findOne({ email: leadData.email });
+      if (existingLead) {
+        results.errors.push({ row: i + 1, message: 'Lead with this email already exists' });
+        continue;
+      }
+
+      const User = (await import('../models/User.js')).default;
+      
+      let managerId = null;
+      let salesId = null;
+
+      if (role === 'manager') {
+        managerId = userId;
+      } else if (role === 'admin' || role === 'superadmin') {
+        const defaultManager = await User.findOne({ role: 'manager', isActive: true });
+        if (defaultManager) managerId = defaultManager._id;
+      }
+
+      const leadNumber = await generateLeadNumber();
+      
+      const lead = await Lead.create({
+        ...leadData,
+        leadNumber,
+        assignedManager: managerId,
+        assignedTo: salesId,
+        createdBy: userId,
+      });
+
+      await logActivity(req.user, 'lead_imported', 'Lead', lead._id, `Imported lead: ${lead.firstName} ${lead.lastName}`);
+      results.created++;
+    } catch (error) {
+      results.errors.push({ row: i + 1, message: error.message });
+    }
+  }
+
+  res.json({ message: 'Import completed', results });
+});
+
+async function generateLeadNumber() {
+  const count = await Lead.countDocuments();
+  return `LD${String(count + 1).padStart(5, '0')}`;
+}
 
 export const convertLead = asyncHandler(async (req, res) => {
   const { role, _id: userId } = req.user;

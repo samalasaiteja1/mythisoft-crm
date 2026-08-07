@@ -173,8 +173,8 @@ export default function Projects({
         subtitle={subtitle}
         meta={!loading && `${projects.length} project${projects.length !== 1 ? 's' : ''} in view`}
         actions={canManageProjects && canWrite('projects') && (
-          <button type="button" onClick={openCreateModal} className="btn-primary text-sm flex items-center gap-2">
-            <Plus size={18} /> Add Project
+          <button type="button" onClick={openCreateModal} className="btn-primary text-xs lg:text-sm flex items-center gap-1 lg:gap-2">
+            <Plus size={14} lg:size={18} /> Add Project
           </button>
         )}
       />
@@ -190,14 +190,14 @@ export default function Projects({
       <AdminContentCard
         className="!p-0 overflow-hidden"
         toolbar={(
-          <div className="flex flex-col sm:flex-row gap-3 w-full px-4 pt-4">
-            <div className="flex-1 min-w-[200px]">
+          <div className="flex flex-col sm:flex-row gap-2 lg:gap-3 w-full px-3 lg:px-4 pt-3 lg:pt-4">
+            <div className="flex-1 min-w-[180px] sm:min-w-[200px]">
               <SearchBar value={search} onChange={setSearch} placeholder="Search projects..." />
             </div>
             {statusOptions && !fixedStatus && !overdueOnly && (
               <div className="flex items-center gap-2 shrink-0">
-                <Filter size={14} className="text-gray-500" />
-                <select className="input-field sm:w-44" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+                <Filter size={12} lg:size={14} className="text-gray-500" />
+                <select className="input-field w-full sm:w-40 lg:w-44 text-xs lg:text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
                   <option value="">All statuses</option>
                   {statusOptions.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
                 </select>
@@ -207,11 +207,11 @@ export default function Projects({
         )}
       >
         {loading ? (
-          <div className="p-8"><LoadingSpinner /></div>
+          <div className="p-6 lg:p-8"><LoadingSpinner /></div>
         ) : projects.length === 0 ? (
-          <div className="p-8"><AdminEmptyState message="No projects found" icon={FolderKanban} /></div>
+          <div className="p-6 lg:p-8"><AdminEmptyState message="No projects found" icon={FolderKanban} /></div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-3 p-4 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2 lg:gap-3 p-3 lg:p-4 pt-2">
             {projects.map((project) => (
               <ProjectListCard
                 key={project._id}

@@ -7,6 +7,7 @@ import { categoryLabel } from '../../hooks/useProjectCategories';
 import StatusBadge from '../StatusBadge';
 import TechnicalOverview from '../technical/TechnicalOverview';
 import { TechPersonPageHeader } from '../technical/technicalPersonUi';
+import TechnicalPersonDashboardCharts from './TechnicalPersonDashboardCharts';
 
 export default function TechnicalMainDashboard({ technicalOverview, roleStats }) {
   if (!technicalOverview) return null;
@@ -20,6 +21,8 @@ export default function TechnicalMainDashboard({ technicalOverview, roleStats })
         title="Tech Team Workspace"
         subtitle="Your assigned projects, tasks, code reviews, testing, and bugs"
       />
+
+      <TechnicalPersonDashboardCharts />
 
       <TechnicalOverview technicalOverview={technicalOverview} roleStats={roleStats} />
 

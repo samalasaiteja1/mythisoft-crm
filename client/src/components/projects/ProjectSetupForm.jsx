@@ -1,9 +1,9 @@
 import CustomerProjectSetupSteps from '../customers/CustomerProjectSetupSteps';
 import { PROJECT_STATUS_KEYS, PROJECT_STATUSES } from '../../constants/projectStatuses';
 
-const fieldLabel = 'block text-sm font-medium text-gray-300 mb-1.5';
-const sectionTitle = 'text-sm font-semibold text-white';
-const sectionHint = 'text-xs text-gray-500';
+const fieldLabel = 'block text-xs lg:text-sm font-medium text-gray-300 mb-1.5';
+const sectionTitle = 'text-xs lg:text-sm font-semibold text-white';
+const sectionHint = 'text-[10px] lg:text-xs text-gray-500';
 
 const priorityOptions = [
   { value: 'low', label: 'Low' },
@@ -48,8 +48,8 @@ export default function ProjectSetupForm({
   };
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
-      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+    <form onSubmit={onSubmit} className="space-y-4 lg:space-y-6">
+      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
         <div>
           <h3 className={sectionTitle}>Customer</h3>
           <p className={`${sectionHint} mt-1`}>Link this project to a customer account</p>
@@ -70,12 +70,12 @@ export default function ProjectSetupForm({
         </div>
       </div>
 
-      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
         <div>
           <h3 className={sectionTitle}>Project requirements</h3>
           <p className={`${sectionHint} mt-1`}>Capture delivery requirements for this project</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
             <label className={fieldLabel}>Project category</label>
             <select
@@ -199,7 +199,7 @@ export default function ProjectSetupForm({
         />
       </div>
 
-      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-2 border-t border-myth-border">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 lg:gap-3 pt-2 border-t border-myth-border">
         {onCancel && (
           <button type="button" onClick={onCancel} className="btn-secondary w-full sm:w-auto" disabled={submitting}>
             {cancelLabel}

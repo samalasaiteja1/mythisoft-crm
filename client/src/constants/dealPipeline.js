@@ -12,6 +12,7 @@ export const DEAL_PIPELINE_STAGES = [
   { key: 'advance_payment_received', label: 'Advance Payment Received', color: 'bg-teal-500/20 text-teal-400', border: 'border-teal-500/30' },
   { key: 'won', label: 'Won', color: 'bg-green-500/20 text-green-400', border: 'border-green-500/30' },
   { key: 'converted_to_customer', label: 'Convert to Customer', color: 'bg-emerald-500/20 text-emerald-400', border: 'border-emerald-500/30' },
+  { key: 'lost', label: 'Lost', color: 'bg-red-500/20 text-red-400', border: 'border-red-500/30' },
 ];
 
 export const DEAL_PIPELINE_KEYS = DEAL_PIPELINE_STAGES.map((s) => s.key);

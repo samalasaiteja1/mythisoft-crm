@@ -48,11 +48,11 @@ const teamIdOfMilestone = (m) => {
 };
 
 const filterHint = (text) => (
-  <p className="text-[11px] text-gray-500 mt-1">{text}</p>
+  <p className="text-[10px] lg:text-[11px] text-gray-500 mt-1">{text}</p>
 );
 
 const sectionTitle = (text) => (
-  <h4 className="text-sm font-semibold text-white uppercase tracking-wide border-b border-myth-border pb-2">
+  <h4 className="text-xs lg:text-sm font-semibold text-white uppercase tracking-wide border-b border-myth-border pb-2">
     {text}
   </h4>
 );
@@ -477,11 +477,11 @@ export default function TechManagerCreateTaskForm({
   }, [employees, form.staffRoleId, isAdmin]);
 
   const attachmentsSection = (
-    <section className="space-y-3">
+    <section className="space-y-2 lg:space-y-3">
       {sectionTitle('Attachments')}
-      <div className="border border-dashed border-myth-border rounded-lg p-4">
-        <label className="flex items-center gap-2 text-sm text-myth-accent cursor-pointer hover:underline">
-          <Upload size={16} />
+      <div className="border border-dashed border-myth-border rounded-lg p-3 lg:p-4">
+        <label className="flex items-center gap-2 text-xs lg:text-sm text-myth-accent cursor-pointer hover:underline">
+          <Upload size={14} lg:size={16} />
           Upload Files
           <input
             type="file"
@@ -497,7 +497,7 @@ export default function TechManagerCreateTaskForm({
         {pendingFiles.length > 0 && (
           <ul className="mt-2 space-y-1">
             {pendingFiles.map((f, i) => (
-              <li key={`${f.name}-${i}`} className="text-xs text-gray-400 flex justify-between gap-2">
+              <li key={`${f.name}-${i}`} className="text-[10px] lg:text-xs text-gray-400 flex justify-between gap-2">
                 <span className="truncate">{f.name}</span>
                 <button
                   type="button"
@@ -513,7 +513,7 @@ export default function TechManagerCreateTaskForm({
         {task?.attachments?.length > 0 && (
           <ul className="mt-2 space-y-1">
             {task.attachments.map((a) => (
-              <li key={a._id || a.fileUrl} className="text-xs text-gray-500">
+              <li key={a._id || a.fileUrl} className="text-[10px] lg:text-xs text-gray-500">
                 Existing: {a.name || 'File'}
               </li>
             ))}
@@ -524,7 +524,7 @@ export default function TechManagerCreateTaskForm({
   );
 
   const formActions = (
-    <div className="flex flex-wrap gap-3 justify-end pt-2 border-t border-myth-border">
+    <div className="flex flex-wrap gap-2 lg:gap-3 justify-end pt-2 border-t border-myth-border">
       {editId && !isAdmin && onDeleted && (
         <button
           type="button"
@@ -556,12 +556,12 @@ export default function TechManagerCreateTaskForm({
 
   if (isAdmin) {
     return (
-      <form onSubmit={handleSubmit} className="space-y-6 max-h-[75vh] overflow-y-auto pr-1">
-        <section className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6 max-h-[75vh] overflow-y-auto pr-1">
+        <section className="space-y-3 lg:space-y-4">
           {sectionTitle('Project Information')}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Project *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Project *</label>
               <select
                 value={form.projectId}
                 onChange={(e) => handleProjectChange(e.target.value)}
@@ -577,7 +577,7 @@ export default function TechManagerCreateTaskForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Milestone *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Milestone *</label>
               <select
                 value={form.milestoneId}
                 onChange={(e) => handleMilestoneChange(e.target.value)}
@@ -595,7 +595,7 @@ export default function TechManagerCreateTaskForm({
             </div>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Customer</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Customer</label>
             <input
               readOnly
               value={customerDisplay(projectDetail)}
@@ -604,10 +604,10 @@ export default function TechManagerCreateTaskForm({
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-3 lg:space-y-4">
           {sectionTitle('Task Information')}
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Task Title *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Task Title *</label>
             <input
               value={form.title}
               onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -616,9 +616,9 @@ export default function TechManagerCreateTaskForm({
               required
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Task Type *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Task Type *</label>
               <select
                 value={form.taskType}
                 onChange={(e) => setForm({ ...form, taskType: e.target.value })}
@@ -632,7 +632,7 @@ export default function TechManagerCreateTaskForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Priority *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Priority *</label>
               <select
                 value={form.priority}
                 onChange={(e) => setForm({ ...form, priority: e.target.value })}
@@ -646,7 +646,7 @@ export default function TechManagerCreateTaskForm({
             </div>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Description *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Description *</label>
             <textarea
               value={form.description}
               onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -655,9 +655,9 @@ export default function TechManagerCreateTaskForm({
               required
             />
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Estimated Hours</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Estimated Hours</label>
               <input
                 type="number"
                 min="0"
@@ -669,7 +669,7 @@ export default function TechManagerCreateTaskForm({
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Start Date *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Start Date *</label>
               <input
                 type="date"
                 value={form.startDate}
@@ -679,7 +679,7 @@ export default function TechManagerCreateTaskForm({
               />
             </div>
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Due Date *</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Due Date *</label>
               <input
                 type="date"
                 value={form.dueDate}
@@ -692,10 +692,10 @@ export default function TechManagerCreateTaskForm({
           </div>
         </section>
 
-        <section className="space-y-4">
+        <section className="space-y-3 lg:space-y-4">
           {sectionTitle('Assignment')}
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Technical Manager *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Technical Manager *</label>
             <select
               value={form.technicalManagerId}
               onChange={(e) => setForm({ ...form, technicalManagerId: e.target.value })}
@@ -710,9 +710,9 @@ export default function TechManagerCreateTaskForm({
               ))}
             </select>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Assign Team</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Assign Team</label>
               <select
                 value={form.staffRoleId}
                 onChange={(e) => handleTeamChange(e.target.value)}
@@ -727,7 +727,7 @@ export default function TechManagerCreateTaskForm({
               </select>
             </div>
             <div>
-              <label className="block text-sm text-gray-300 mb-1">Assign Employee</label>
+              <label className="block text-xs lg:text-sm text-gray-300 mb-1">Assign Employee</label>
               <select
                 value={form.assignedTo}
                 onChange={(e) => setForm({ ...form, assignedTo: e.target.value })}
@@ -744,10 +744,10 @@ export default function TechManagerCreateTaskForm({
           </div>
         </section>
 
-        <section className="space-y-3">
+        <section className="space-y-2 lg:space-y-3">
           {sectionTitle('Status')}
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Status *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Status *</label>
             <select
               value={form.status}
               onChange={(e) => setForm({ ...form, status: e.target.value })}
@@ -763,7 +763,7 @@ export default function TechManagerCreateTaskForm({
 
         {attachmentsSection}
 
-        <section className="space-y-3">
+        <section className="space-y-2 lg:space-y-3">
           {sectionTitle('Remarks')}
           <textarea
             value={form.remarks}
@@ -779,12 +779,12 @@ export default function TechManagerCreateTaskForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-h-[75vh] overflow-y-auto pr-1">
-      <section className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6 max-h-[75vh] overflow-y-auto pr-1">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Project')}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Project *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Project *</label>
             <select
               value={form.projectId}
               onChange={(e) => handleProjectChange(e.target.value)}
@@ -801,7 +801,7 @@ export default function TechManagerCreateTaskForm({
             {filterHint(projectHint)}
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Milestone *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Milestone *</label>
             <select
               value={form.milestoneId}
               onChange={(e) => handleMilestoneChange(e.target.value)}
@@ -820,7 +820,7 @@ export default function TechManagerCreateTaskForm({
             {filterHint(milestoneHint)}
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Team *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Team *</label>
             <select
               value={form.staffRoleId}
               onChange={(e) => handleTeamChange(e.target.value)}
@@ -841,10 +841,10 @@ export default function TechManagerCreateTaskForm({
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Task Information')}
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Task Title *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Task Title *</label>
           <input
             value={form.title}
             onChange={(e) => setForm({ ...form, title: e.target.value })}
@@ -853,9 +853,9 @@ export default function TechManagerCreateTaskForm({
             required
           />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Task Type *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Task Type *</label>
             <select
               value={form.taskType}
               onChange={(e) => setForm({ ...form, taskType: e.target.value })}
@@ -869,7 +869,7 @@ export default function TechManagerCreateTaskForm({
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Priority *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Priority *</label>
             <select
               value={form.priority}
               onChange={(e) => setForm({ ...form, priority: e.target.value })}
@@ -883,7 +883,7 @@ export default function TechManagerCreateTaskForm({
           </div>
         </div>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Description *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Description *</label>
           <textarea
             value={form.description}
             onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -893,7 +893,7 @@ export default function TechManagerCreateTaskForm({
           />
         </div>
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Estimated Hours</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Estimated Hours</label>
           <input
             type="number"
             min="0"
@@ -906,11 +906,11 @@ export default function TechManagerCreateTaskForm({
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Assignment')}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 lg:gap-4">
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Assign To *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Assign To *</label>
             <select
               value={form.assignedTo}
               onChange={(e) => setForm({ ...form, assignedTo: e.target.value })}
@@ -927,7 +927,7 @@ export default function TechManagerCreateTaskForm({
             </select>
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Start Date *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Start Date *</label>
             <input
               type="date"
               value={form.startDate}
@@ -937,7 +937,7 @@ export default function TechManagerCreateTaskForm({
             />
           </div>
           <div>
-            <label className="block text-sm text-gray-300 mb-1">Due Date *</label>
+            <label className="block text-xs lg:text-sm text-gray-300 mb-1">Due Date *</label>
             <input
               type="date"
               value={form.dueDate}
@@ -950,10 +950,10 @@ export default function TechManagerCreateTaskForm({
         </div>
       </section>
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Status')}
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Status *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Status *</label>
           <select
             value={form.status}
             onChange={(e) => setForm({ ...form, status: e.target.value })}
@@ -969,7 +969,7 @@ export default function TechManagerCreateTaskForm({
 
       {attachmentsSection}
 
-      <section className="space-y-3">
+      <section className="space-y-2 lg:space-y-3">
         {sectionTitle('Remarks')}
         <textarea
           value={form.remarks}

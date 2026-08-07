@@ -25,6 +25,7 @@ import SalesOverview from './SalesOverview';
 import LeadDealFollowUpGuide from './LeadDealFollowUpGuide';
 import FollowUpSummaryPanel from './FollowUpSummaryPanel';
 import StatusBadge from '../StatusBadge';
+import SalespersonDashboardCharts from './SalespersonDashboardCharts';
 
 export default function SalesMainDashboard({ salesOverview, roleStats }) {
   const [followups, setFollowups] = useState([]);
@@ -126,6 +127,9 @@ export default function SalesMainDashboard({ salesOverview, roleStats }) {
 
   return (
     <div className="space-y-4">
+      {/* Charts Section */}
+      <SalespersonDashboardCharts roleStats={roleStats} />
+
       {/* Hero + pipeline */}
       <div className="card border-blue-500/20 overflow-hidden">
         <div className="relative p-5 sm:p-6 border-b border-myth-border/60 bg-gradient-to-br from-blue-500/10 via-myth-accent/5 to-purple-500/5">

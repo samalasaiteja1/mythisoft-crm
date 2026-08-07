@@ -408,26 +408,26 @@ export default function Users() {
   if (loading) return <LoadingSpinner />;
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 lg:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-            <UserCog size={24} className="text-myth-accent" /> Employees
+          <h1 className="text-xl lg:text-2xl font-bold text-white flex items-center gap-2">
+            <UserCog size={20} lg:size={24} className="text-myth-accent" /> Employees
           </h1>
-          <p className="text-gray-400 mt-1">Manage employees and assign teams from Settings</p>
+          <p className="text-xs lg:text-sm text-gray-400 mt-1">Manage employees and assign teams from Settings</p>
         </div>
-        <button type="button" onClick={() => openAdd()} className="btn-primary flex items-center gap-2">
-          <Plus size={18} /> Add Employee
+        <button type="button" onClick={() => openAdd()} className="btn-primary flex items-center gap-1 lg:gap-2 text-xs lg:text-sm">
+          <Plus size={14} lg:size={18} /> Add Employee
         </button>
       </div>
 
-      <div className="card border border-myth-border/80 bg-myth-surface/30 p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <div className="card border border-myth-border/80 bg-myth-surface/30 p-3 lg:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 lg:gap-3">
         <div>
-          <p className="text-sm text-white font-medium">Teams come from Settings</p>
-          <p className="text-xs text-gray-500 mt-1">Create teams in Settings → Teams, then assign employees here.</p>
+          <p className="text-xs lg:text-sm text-white font-medium">Teams come from Settings</p>
+          <p className="text-[10px] lg:text-xs text-gray-500 mt-1">Create teams in Settings → Teams, then assign employees here.</p>
         </div>
-        <Link to="/settings?tab=staff-roles" className="btn-secondary inline-flex items-center gap-2 shrink-0">
-          <Settings size={16} /> Manage Teams
+        <Link to="/settings?tab=staff-roles" className="btn-secondary inline-flex items-center gap-1 lg:gap-2 shrink-0 text-xs lg:text-sm">
+          <Settings size={14} lg:size={16} /> Manage Teams
         </Link>
       </div>
 
@@ -435,16 +435,16 @@ export default function Users() {
         <button
           type="button"
           onClick={() => setTab('employees')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${tab === 'employees' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
+          className={`flex items-center gap-1 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg text-xs lg:text-sm font-medium ${tab === 'employees' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
         >
-          <UsersIcon size={16} /> Employees ({employees.length})
+          <UsersIcon size={14} lg:size={16} /> Employees ({employees.length})
         </button>
         <button
           type="button"
           onClick={() => setTab('teams')}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium ${tab === 'teams' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
+          className={`flex items-center gap-1 lg:gap-2 px-3 lg:px-4 py-1.5 lg:py-2 rounded-lg text-xs lg:text-sm font-medium ${tab === 'teams' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
         >
-          <Shield size={16} /> Teams ({settingsTeams.length})
+          <Shield size={14} lg:size={16} /> Teams ({settingsTeams.length})
         </button>
       </div>
 
@@ -454,7 +454,7 @@ export default function Users() {
             <button
               type="button"
               onClick={() => setRoleFilter('all')}
-              className={`px-3 py-1.5 rounded-lg text-sm ${roleFilter === 'all' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
+              className={`px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm ${roleFilter === 'all' ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
             >
               All ({employees.length})
             </button>
@@ -463,7 +463,7 @@ export default function Users() {
                 key={opt.value}
                 type="button"
                 onClick={() => setRoleFilter(opt.value)}
-                className={`px-3 py-1.5 rounded-lg text-sm ${roleFilter === opt.value ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
+                className={`px-2 lg:px-3 py-1 lg:py-1.5 rounded-lg text-xs lg:text-sm ${roleFilter === opt.value ? 'bg-myth-accent/20 text-myth-accent' : 'bg-myth-surface text-gray-400'}`}
               >
                 {opt.label} ({roleCounts[opt.value] || 0})
               </button>
@@ -472,7 +472,7 @@ export default function Users() {
 
           <div className="card overflow-hidden p-0">
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-xs lg:text-sm">
                 <thead className="bg-myth-surface/50">
                   <tr>
                     <th className="table-header">Employee</th>
@@ -490,14 +490,14 @@ export default function Users() {
                   {filteredEmployees.map((e) => (
                     <tr key={e._id} className="hover:bg-myth-surface/30">
                       <td className="table-cell">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-myth-accent/20 flex items-center justify-center text-myth-accent text-xs font-bold">
+                        <div className="flex items-center gap-2 lg:gap-3">
+                          <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-full bg-myth-accent/20 flex items-center justify-center text-myth-accent text-[10px] lg:text-xs font-bold">
                             {e.firstName[0]}{e.lastName[0]}
                           </div>
                           <span className="font-medium text-white">{e.firstName} {e.lastName}</span>
                         </div>
                       </td>
-                      <td className="table-cell font-mono text-myth-accent text-sm">{e.employeeId || '—'}</td>
+                      <td className="table-cell font-mono text-myth-accent text-[10px] lg:text-xs">{e.employeeId || '—'}</td>
                       <td className="table-cell">{e.email}</td>
                       <td className="table-cell text-white">{e.staffRole?.name || '—'}</td>
                       <td className="table-cell">
@@ -510,37 +510,37 @@ export default function Users() {
                       </td>
                       <td className="table-cell">
                         {teamLeadIds.has(String(e._id)) ? (
-                          <span className="badge bg-amber-500/20 text-amber-400">Team Lead</span>
+                          <span className="badge bg-amber-500/20 text-amber-400 text-[10px] lg:text-xs">Team Lead</span>
                         ) : (
-                          <span className="text-gray-500">—</span>
+                          <span className="text-gray-500 text-[10px] lg:text-xs">—</span>
                         )}
                       </td>
                       <td className="table-cell">
-                        <span className={`badge ${e.isActive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                        <span className={`badge ${e.isActive ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'} text-[10px] lg:text-xs`}>
                           {e.isActive ? 'Active' : 'Inactive'}
                         </span>
                       </td>
                       <td className="table-cell">
                         <div className="flex items-center gap-1">
-                          <button type="button" onClick={() => openEdit(e)} className="p-1.5 rounded hover:bg-myth-navy-light text-gray-400 hover:text-white" title="Edit employee">
-                            <Pencil size={16} />
+                          <button type="button" onClick={() => openEdit(e)} className="p-1 lg:p-1.5 rounded hover:bg-myth-navy-light text-gray-400 hover:text-white" title="Edit employee">
+                            <Pencil size={12} lg:size={16} />
                           </button>
                           <button
                             type="button"
                             onClick={() => openPasswordChange(e)}
-                            className="p-1.5 rounded hover:bg-blue-500/10 text-gray-400 hover:text-blue-400"
+                            className="p-1 lg:p-1.5 rounded hover:bg-blue-500/10 text-gray-400 hover:text-blue-400"
                             title="Change password"
                           >
-                            <Key size={16} />
+                            <Key size={12} lg:size={16} />
                           </button>
                           <button
                             type="button"
                             onClick={() => deleteEmployee(e)}
                             disabled={e._id === currentUser?._id}
-                            className="p-1.5 rounded hover:bg-red-500/10 text-gray-400 hover:text-red-400 disabled:opacity-30"
+                            className="p-1 lg:p-1.5 rounded hover:bg-red-500/10 text-gray-400 hover:text-red-400 disabled:opacity-30"
                             title="Delete employee"
                           >
-                            <Trash2 size={16} />
+                            <Trash2 size={12} lg:size={16} />
                           </button>
                         </div>
                       </td>
@@ -552,14 +552,14 @@ export default function Users() {
           </div>
         </>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6 lg:space-y-8">
           <div>
-            <h3 className="text-white font-medium mb-3">Role Teams (Settings)</h3>
+            <h3 className="text-white font-medium mb-2 lg:mb-3 text-sm lg:text-base">Role Teams (Settings)</h3>
           {TEAM_GROUP_OPTIONS.map((group) => (
             <div key={group.key}>
-              <h3 className="text-white font-medium mb-3">{group.label}</h3>
+              <h3 className="text-white font-medium mb-2 lg:mb-3 text-sm lg:text-base">{group.label}</h3>
               {teamsByGroup[group.key]?.length ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
                   {teamsByGroup[group.key].map((team) => {
                     const members = employeesByTeam[String(team._id)] || [];
                     return (
@@ -568,32 +568,32 @@ export default function Users() {
                           <div className="flex-1">
                             <Link
                               to={`/teams/detail/${team._id}`}
-                              className="font-semibold text-white hover:text-myth-accent transition-colors"
+                              className="font-semibold text-white hover:text-myth-accent transition-colors text-sm lg:text-base"
                             >
                               {team.name}
                             </Link>
-                            <p className="text-sm text-gray-400 mt-1">{team.description || 'No description'}</p>
+                            <p className="text-xs lg:text-sm text-gray-400 mt-1">{team.description || 'No description'}</p>
                             {team.teamLeader && (
-                              <p className="text-xs text-myth-accent mt-1">
+                              <p className="text-[10px] lg:text-xs text-myth-accent mt-1">
                                 Team Lead: {team.teamLeader.firstName} {team.teamLeader.lastName}
                               </p>
                             )}
-                            <p className="text-xs text-gray-500 mt-2">{members.length} employee{members.length === 1 ? '' : 's'}</p>
+                            <p className="text-[10px] lg:text-xs text-gray-500 mt-2">{members.length} employee{members.length === 1 ? '' : 's'}</p>
                           </div>
                           <div className="flex flex-col gap-2">
                             <Link
                               to={`/teams/detail/${team._id}`}
-                              className="btn-secondary text-xs py-1.5 px-3 inline-flex items-center gap-1 justify-center"
+                              className="btn-secondary text-[10px] lg:text-xs py-1 lg:py-1.5 px-2 lg:px-3 inline-flex items-center gap-1 justify-center"
                             >
-                              <Eye size={14} /> View Details
+                              <Eye size={12} lg:size={14} /> View Details
                             </Link>
-                            <button type="button" onClick={() => openAdd(team._id)} className="btn-secondary text-xs py-1.5 px-3">
+                            <button type="button" onClick={() => openAdd(team._id)} className="btn-secondary text-[10px] lg:text-xs py-1 lg:py-1.5 px-2 lg:px-3">
                               Add Employee
                             </button>
                           </div>
                         </div>
                         {members.length > 0 && (
-                          <div className="mt-4 pt-3 border-t border-myth-border space-y-3">
+                          <div className="mt-3 lg:mt-4 pt-2 lg:pt-3 border-t border-myth-border space-y-2 lg:space-y-3">
                             {members.map((m) => (
                               <div key={m._id} className="relative group">
                                 <TeamMemberCard

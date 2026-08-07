@@ -61,8 +61,8 @@ function splitMembersFromLabels(memberIds, labels, employees = []) {
 function MemberCheckList({ title, hint, options, selectedIds, onToggle, emptyText }) {
   return (
     <div>
-      <label className="block text-sm text-gray-300 mb-1">{title}</label>
-      {hint && <p className="text-xs text-gray-500 mb-2">{hint}</p>}
+      <label className="block text-xs lg:text-sm text-gray-300 mb-1">{title}</label>
+      {hint && <p className="text-[10px] lg:text-xs text-gray-500 mb-2">{hint}</p>}
       <div className="border border-myth-border rounded-lg divide-y divide-myth-border max-h-48 overflow-y-auto">
         {options.length ? options.map((emp) => {
           const id = String(emp._id);
@@ -70,7 +70,7 @@ function MemberCheckList({ title, hint, options, selectedIds, onToggle, emptyTex
           return (
             <label
               key={emp._id}
-              className={`flex items-center gap-3 px-3 py-2.5 cursor-pointer hover:bg-myth-surface/60 ${checked ? 'bg-myth-accent/10' : ''}`}
+              className={`flex items-center gap-2 lg:gap-3 px-2 lg:px-3 py-2 lg:py-2.5 cursor-pointer hover:bg-myth-surface/60 ${checked ? 'bg-myth-accent/10' : ''}`}
             >
               <input
                 type="checkbox"
@@ -78,16 +78,16 @@ function MemberCheckList({ title, hint, options, selectedIds, onToggle, emptyTex
                 onChange={() => onToggle(id)}
                 className="rounded border-myth-border"
               />
-              <span className="text-sm text-white">
+              <span className="text-xs lg:text-sm text-white">
                 {emp.firstName} {emp.lastName}
                 {emp.role === 'technical' && (
-                  <span className="text-xs text-cyan-400 ml-1">(Technical)</span>
+                  <span className="text-[10px] lg:text-xs text-cyan-400 ml-1">(Technical)</span>
                 )}
               </span>
             </label>
           );
         }) : (
-          <p className="text-sm text-gray-500 text-center py-6">{emptyText}</p>
+          <p className="text-xs lg:text-sm text-gray-500 text-center py-4 lg:py-6">{emptyText}</p>
         )}
       </div>
     </div>
@@ -251,17 +251,17 @@ export default function SupportManagerCreateTeamForm({
   if (loading) return <LoadingSpinner />;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="text-center border-b border-myth-border pb-4 mb-2">
-        <h3 className="text-sm font-semibold tracking-widest text-gray-400 uppercase">
+    <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-5">
+      <div className="text-center border-b border-myth-border pb-3 lg:pb-4 mb-2">
+        <h3 className="text-xs lg:text-sm font-semibold tracking-widest text-gray-400 uppercase">
           {editId ? 'Edit Support Team' : 'Create Support Team'}
         </h3>
-        <p className="text-xs text-gray-500 mt-1">Add Customer Support and Technical Support members to the same team.</p>
+        <p className="text-[10px] lg:text-xs text-gray-500 mt-1">Add Customer Support and Technical Support members to the same team.</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
         <div className="sm:col-span-2">
-          <label className="block text-sm text-gray-300 mb-1">Project *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Project *</label>
           <select
             value={form.projectId}
             onChange={(e) => setForm({ ...form, projectId: e.target.value })}
@@ -277,7 +277,7 @@ export default function SupportManagerCreateTeamForm({
         </div>
 
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Customer *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Customer *</label>
           <input
             value={personName(selectedProject?.customer)}
             className="input-field w-full bg-myth-surface/50"
@@ -288,7 +288,7 @@ export default function SupportManagerCreateTeamForm({
         </div>
 
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Project Type *</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Project Type *</label>
           <input
             value={projectTypeLabel(selectedProject)}
             className="input-field w-full bg-myth-surface/50"
@@ -300,7 +300,7 @@ export default function SupportManagerCreateTeamForm({
       </div>
 
       <div>
-        <label className="block text-sm text-gray-300 mb-1">Team Name *</label>
+        <label className="block text-xs lg:text-sm text-gray-300 mb-1">Team Name *</label>
         <input
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
@@ -312,13 +312,13 @@ export default function SupportManagerCreateTeamForm({
 
       {editId && team?.code && (
         <div>
-          <label className="block text-sm text-gray-300 mb-1">Team Code</label>
+          <label className="block text-xs lg:text-sm text-gray-300 mb-1">Team Code</label>
           <input value={team.code} className="input-field w-full bg-myth-surface/50" readOnly disabled />
         </div>
       )}
 
       <div>
-        <label className="block text-sm text-gray-300 mb-1">Description</label>
+        <label className="block text-xs lg:text-sm text-gray-300 mb-1">Description</label>
         <textarea
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -327,7 +327,7 @@ export default function SupportManagerCreateTeamForm({
         />
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid md:grid-cols-2 gap-3 lg:gap-4">
         <MemberCheckList
           title="Customer Support (Support Executives) *"
           hint="Training, user setup, customer support, documentation tasks"
@@ -347,10 +347,10 @@ export default function SupportManagerCreateTeamForm({
       </div>
 
       <div>
-        <label className="block text-sm text-gray-300 mb-2">Status *</label>
-        <div className="flex flex-wrap gap-6">
+        <label className="block text-xs lg:text-sm text-gray-300 mb-2">Status *</label>
+        <div className="flex flex-wrap gap-4 lg:gap-6">
           {['active', 'inactive'].map((status) => (
-            <label key={status} className="inline-flex items-center gap-2 cursor-pointer text-sm text-gray-300 capitalize">
+            <label key={status} className="inline-flex items-center gap-2 cursor-pointer text-xs lg:text-sm text-gray-300 capitalize">
               <input
                 type="radio"
                 name="teamStatus"
@@ -366,7 +366,7 @@ export default function SupportManagerCreateTeamForm({
       </div>
 
       <div>
-        <label className="block text-sm text-gray-300 mb-1">Notes</label>
+        <label className="block text-xs lg:text-sm text-gray-300 mb-1">Notes</label>
         <textarea
           value={form.notes}
           onChange={(e) => setForm({ ...form, notes: e.target.value })}
@@ -376,14 +376,14 @@ export default function SupportManagerCreateTeamForm({
       </div>
 
       {!editId && (
-        <p className="text-xs text-gray-500">Team code is auto-generated when you save.</p>
+        <p className="text-[10px] lg:text-xs text-gray-500">Team code is auto-generated when you save.</p>
       )}
 
-      <div className="flex justify-center gap-3 pt-2 border-t border-myth-border">
-        <button type="submit" className="btn-primary min-w-[120px]" disabled={submitting}>
+      <div className="flex justify-center gap-2 lg:gap-3 pt-2 border-t border-myth-border">
+        <button type="submit" className="btn-primary min-w-[100px] lg:min-w-[120px]" disabled={submitting}>
           {submitting ? 'Saving…' : 'Save Team'}
         </button>
-        <button type="button" onClick={onCancel} className="btn-secondary min-w-[120px]" disabled={submitting}>
+        <button type="button" onClick={onCancel} className="btn-secondary min-w-[100px] lg:min-w-[120px]" disabled={submitting}>
           Cancel
         </button>
       </div>

@@ -60,21 +60,21 @@ const PRIORITY_ACTIVE = {
 function Section({ icon: Icon, title, subtitle, children, accent = false }) {
   return (
     <section
-      className={`rounded-xl border p-5 sm:p-6 space-y-5 ${
+      className={`rounded-xl border p-3 lg:p-5 sm:p-6 space-y-3 lg:space-y-5 ${
         accent
           ? 'border-myth-accent/25 bg-gradient-to-br from-myth-accent/8 via-myth-card to-myth-card shadow-glow'
           : 'border-myth-border bg-myth-card shadow-card'
       }`}
     >
-      <div className="flex items-start gap-3">
+      <div className="flex items-start gap-2 lg:gap-3">
         {Icon && (
-          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-myth-surface border border-myth-border text-myth-accent">
-            <Icon size={18} />
+          <span className="flex h-8 w-8 lg:h-9 lg:w-9 shrink-0 items-center justify-center rounded-lg bg-myth-surface border border-myth-border text-myth-accent">
+            <Icon size={14} lg:size={18} />
           </span>
         )}
         <div>
-          <h3 className="text-sm font-semibold text-white tracking-wide">{title}</h3>
-          {subtitle && <p className="text-xs text-gray-500 mt-0.5">{subtitle}</p>}
+          <h3 className="text-xs lg:text-sm font-semibold text-white tracking-wide">{title}</h3>
+          {subtitle && <p className="text-[10px] lg:text-xs text-gray-500 mt-0.5">{subtitle}</p>}
         </div>
       </div>
       {children}
@@ -84,7 +84,7 @@ function Section({ icon: Icon, title, subtitle, children, accent = false }) {
 
 function FieldLabel({ children, required }) {
   return (
-    <label className="block text-xs font-medium uppercase tracking-wider text-gray-400 mb-1.5">
+    <label className="block text-[10px] lg:text-xs font-medium uppercase tracking-wider text-gray-400 mb-1.5">
       {children}
       {required && <span className="text-myth-accent ml-0.5">*</span>}
     </label>
@@ -336,7 +336,7 @@ export default function FollowUpForm({
   const selectedType = FOLLOWUP_TYPES.find((t) => t.key === form.activityType);
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-4xl space-y-5 animate-fade-in">
+    <form onSubmit={handleSubmit} className="max-w-4xl space-y-3 lg:space-y-5 animate-fade-in">
       {/* Record selection */}
       <Section
         icon={Target}
@@ -387,71 +387,71 @@ export default function FollowUpForm({
 
       {/* Contact preview */}
       {hasContact && (
-        <div className="rounded-xl border border-myth-accent/30 bg-gradient-to-r from-myth-accent/10 via-myth-card to-myth-card p-5 sm:p-6">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-myth-accent/20 border border-myth-accent/40 text-lg font-bold text-myth-accent">
+        <div className="rounded-xl border border-myth-accent/30 bg-gradient-to-r from-myth-accent/10 via-myth-card to-myth-card p-3 lg:p-5 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 lg:gap-4">
+            <div className="flex h-12 w-12 lg:h-14 lg:w-14 shrink-0 items-center justify-center rounded-full bg-myth-accent/20 border border-myth-accent/40 text-base lg:text-lg font-bold text-myth-accent">
               {getInitials(form.contactName)}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="text-lg font-semibold text-white">{form.contactName}</p>
+                <p className="text-base lg:text-lg font-semibold text-white">{form.contactName}</p>
                 {form.contactTitle && (
-                  <span className="text-xs px-2 py-0.5 rounded-full bg-myth-surface border border-myth-border text-gray-400">
+                  <span className="text-[10px] lg:text-xs px-2 py-0.5 rounded-full bg-myth-surface border border-myth-border text-gray-400">
                     {form.contactTitle}
                   </span>
                 )}
               </div>
               {(form.company || form.contactIndustry) && (
-                <p className="text-sm text-gray-400 mt-0.5 flex items-center gap-1.5">
-                  <Building2 size={13} className="text-myth-accent shrink-0" />
+                <p className="text-xs lg:text-sm text-gray-400 mt-0.5 flex items-center gap-1.5">
+                  <Building2 size={11} lg:size={13} className="text-myth-accent shrink-0" />
                   {form.company}{form.contactIndustry ? ` · ${form.contactIndustry}` : ''}
                 </p>
               )}
               {contactSource && (
-                <p className="text-xs text-myth-accent mt-1">Linked: {contactSource}</p>
+                <p className="text-[10px] lg:text-xs text-myth-accent mt-1">Linked: {contactSource}</p>
               )}
             </div>
             <div className="flex flex-wrap gap-2 sm:justify-end">
               {form.contactPhone && (
                 <a
                   href={`tel:${form.contactPhone}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 text-sm hover:bg-green-500/20 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2 lg:px-3 py-2 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 text-[10px] lg:text-sm hover:bg-green-500/20 transition-colors"
                 >
-                  <Phone size={14} /> Call
+                  <Phone size={12} lg:size={14} /> Call
                 </a>
               )}
               {form.contactEmail && (
                 <a
                   href={`mailto:${form.contactEmail}`}
-                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-sm hover:bg-blue-500/20 transition-colors"
+                  className="inline-flex items-center gap-1.5 px-2 lg:px-3 py-2 rounded-lg bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[10px] lg:text-sm hover:bg-blue-500/20 transition-colors"
                 >
-                  <Mail size={14} /> Email
+                  <Mail size={12} lg:size={14} /> Email
                 </a>
               )}
             </div>
           </div>
-          <div className="mt-4 pt-4 border-t border-myth-border/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+          <div className="mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-myth-border/60 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs lg:text-sm">
             {form.contactEmail && (
               <div className="flex items-center gap-2 text-gray-400">
-                <Mail size={14} className="text-myth-accent shrink-0" />
+                <Mail size={12} lg:size={14} className="text-myth-accent shrink-0" />
                 <span className="truncate">{form.contactEmail}</span>
               </div>
             )}
             {form.contactPhone && (
               <div className="flex items-center gap-2 text-gray-400">
-                <Phone size={14} className="text-green-400 shrink-0" />
+                <Phone size={12} lg:size={14} className="text-green-400 shrink-0" />
                 <span>{form.contactPhone}</span>
               </div>
             )}
             {form.contactAlternatePhone && (
               <div className="flex items-center gap-2 text-gray-400">
-                <Phone size={14} className="text-green-400 shrink-0" />
+                <Phone size={12} lg:size={14} className="text-green-400 shrink-0" />
                 <span>{form.contactAlternatePhone} (alt)</span>
               </div>
             )}
             {form.contactWebsite && (
               <div className="flex items-center gap-2 text-gray-400">
-                <Globe size={14} className="text-myth-accent shrink-0" />
+                <Globe size={12} lg:size={14} className="text-myth-accent shrink-0" />
                 <a
                   href={form.contactWebsite.startsWith('http') ? form.contactWebsite : `https://${form.contactWebsite}`}
                   target="_blank"
@@ -479,14 +479,14 @@ export default function FollowUpForm({
                     key={t.key}
                     type="button"
                     onClick={() => set('activityType', t.key)}
-                    className={`group flex flex-col items-center gap-1.5 p-3 rounded-xl border text-center transition-all duration-200 ${
+                    className={`group flex flex-col items-center gap-1.5 p-2 lg:p-3 rounded-xl border text-center transition-all duration-200 ${
                       active
                         ? 'border-myth-accent bg-myth-accent/15 shadow-glow scale-[1.02]'
                         : 'border-myth-border bg-myth-surface/50 text-gray-400 hover:border-myth-accent/40 hover:bg-myth-surface'
                     }`}
                   >
-                    <span className="text-2xl leading-none">{t.icon}</span>
-                    <span className={`text-xs font-medium leading-tight ${active ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
+                    <span className="text-xl lg:text-2xl leading-none">{t.icon}</span>
+                    <span className={`text-[10px] lg:text-xs font-medium leading-tight ${active ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
                       {t.label}
                     </span>
                   </button>
@@ -495,7 +495,7 @@ export default function FollowUpForm({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-5">
             <div>
               <FieldLabel>Follow-up status</FieldLabel>
               <div className="flex flex-wrap gap-2">
@@ -506,7 +506,7 @@ export default function FollowUpForm({
                       key={s.key}
                       type="button"
                       onClick={() => set('status', s.key)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border transition-all ${
+                      className={`px-2 lg:px-3 py-1.5 rounded-full text-[10px] lg:text-xs font-medium border transition-all ${
                         active
                           ? `${statusColors[s.key]} border-transparent ring-1 ring-white/10`
                           : 'border-myth-border text-gray-500 hover:border-myth-accent/40 hover:text-gray-300'
@@ -528,7 +528,7 @@ export default function FollowUpForm({
                       key={p.key}
                       type="button"
                       onClick={() => set('priority', p.key)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-medium border capitalize transition-all ${
+                      className={`px-2 lg:px-3 py-1.5 rounded-full text-[10px] lg:text-xs font-medium border capitalize transition-all ${
                         active ? PRIORITY_ACTIVE[p.key] : PRIORITY_STYLES[p.key]
                       }`}
                     >
@@ -542,7 +542,7 @@ export default function FollowUpForm({
         </Section>
       ) : (
         <Section icon={Sparkles} title="Activity details">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div>
               <FieldLabel>Activity type</FieldLabel>
               <select className="input-field" value={form.activityType} onChange={(e) => set('activityType', e.target.value)}>
@@ -579,7 +579,7 @@ export default function FollowUpForm({
                   key={g.key}
                   type="button"
                   onClick={() => handleLeadStatusChange(g.key)}
-                  className={`inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full text-sm font-medium border transition-all ${
+                  className={`inline-flex items-center gap-1.5 px-2 lg:px-3.5 py-2 rounded-full text-xs lg:text-sm font-medium border transition-all ${
                     active
                       ? 'border-myth-accent bg-myth-accent/15 text-white shadow-glow'
                       : 'border-myth-border bg-myth-surface/40 text-gray-400 hover:border-myth-accent/40 hover:text-gray-200'
@@ -602,18 +602,18 @@ export default function FollowUpForm({
                     key={opt.key}
                     type="button"
                     onClick={() => handleFollowUpOptionChange(opt.key)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all ${
+                    className={`flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 rounded-xl border text-left transition-all ${
                       active
                         ? 'border-myth-accent bg-myth-accent/10 text-white'
                         : 'border-myth-border bg-myth-surface/30 text-gray-400 hover:border-myth-accent/30 hover:text-gray-200'
                     }`}
                   >
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm ${
+                    <span className={`flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg text-xs lg:text-sm ${
                       active ? 'bg-myth-accent/20' : 'bg-myth-surface'
                     }`}>
                       {FOLLOWUP_TYPES.find((t) => t.key === opt.activityType)?.icon || '📝'}
                     </span>
-                    <span className="text-sm font-medium">{opt.label}</span>
+                    <span className="text-xs lg:text-sm font-medium">{opt.label}</span>
                   </button>
                 );
               })}
@@ -639,7 +639,7 @@ export default function FollowUpForm({
                   key={g.key}
                   type="button"
                   onClick={() => handleDealStageChange(g.key)}
-                  className={`inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium border transition-all ${
+                  className={`inline-flex items-center gap-1.5 px-2 lg:px-3 py-2 rounded-full text-[10px] lg:text-xs font-medium border transition-all ${
                     active
                       ? `${style.color} border-myth-accent/50 ring-1 ring-myth-accent/30`
                       : 'border-myth-border bg-myth-surface/40 text-gray-400 hover:border-myth-accent/40 hover:text-gray-200'
@@ -661,18 +661,18 @@ export default function FollowUpForm({
                     key={opt.key}
                     type="button"
                     onClick={() => handleDealFollowUpOptionChange(opt.key)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-xl border text-left transition-all ${
+                    className={`flex items-center gap-2 lg:gap-3 px-3 lg:px-4 py-2 lg:py-3 rounded-xl border text-left transition-all ${
                       active
                         ? 'border-myth-accent bg-myth-accent/10 text-white'
                         : 'border-myth-border bg-myth-surface/30 text-gray-400 hover:border-myth-accent/30 hover:text-gray-200'
                     }`}
                   >
-                    <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm ${
+                    <span className={`flex h-7 w-7 lg:h-8 lg:w-8 shrink-0 items-center justify-center rounded-lg text-xs lg:text-sm ${
                       active ? 'bg-myth-accent/20' : 'bg-myth-surface'
                     }`}>
                       {FOLLOWUP_TYPES.find((t) => t.key === opt.activityType)?.icon || '📝'}
                     </span>
-                    <span className="text-sm font-medium">{opt.label}</span>
+                    <span className="text-xs lg:text-sm font-medium">{opt.label}</span>
                   </button>
                 );
               })}
@@ -720,11 +720,11 @@ export default function FollowUpForm({
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
             <FieldLabel>Scheduled at</FieldLabel>
             <div className="relative">
-              <Calendar size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              <Calendar size={14} lg:size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
               <input
                 type="datetime-local"
                 className="input-field pl-10"
@@ -736,7 +736,7 @@ export default function FollowUpForm({
           <div>
             <FieldLabel>Assigned to</FieldLabel>
             <div className="relative">
-              <User size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+              <User size={14} lg:size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
               <select
                 className="input-field pl-10"
                 value={form.assignedTo}
@@ -755,7 +755,7 @@ export default function FollowUpForm({
       {/* Meeting fields */}
       {isMeeting && (
         <Section icon={Video} title="Meeting details" subtitle="Link, location, and duration">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
             <div>
               <FieldLabel>Meeting link / location</FieldLabel>
               <input
@@ -768,7 +768,7 @@ export default function FollowUpForm({
             <div>
               <FieldLabel>Duration (minutes)</FieldLabel>
               <div className="relative">
-                <Clock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
+                <Clock size={14} lg:size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none" />
                 <input
                   type="number"
                   className="input-field pl-10"
@@ -788,25 +788,25 @@ export default function FollowUpForm({
         <button
           type="button"
           onClick={() => setShowContactEdit((v) => !v)}
-          className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-myth-surface/30 transition-colors"
+          className="w-full flex items-center justify-between px-3 lg:px-5 py-3 lg:py-4 text-left hover:bg-myth-surface/30 transition-colors"
         >
-          <div className="flex items-center gap-3">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-myth-surface border border-myth-border text-myth-accent">
-              <Briefcase size={16} />
+          <div className="flex items-center gap-2 lg:gap-3">
+            <span className="flex h-7 w-7 lg:h-8 lg:w-8 items-center justify-center rounded-lg bg-myth-surface border border-myth-border text-myth-accent">
+              <Briefcase size={14} lg:size={16} />
             </span>
             <div>
-              <p className="text-sm font-medium text-white">Edit contact for this follow-up</p>
-              <p className="text-xs text-gray-500">Optional — override auto-filled lead contact</p>
+              <p className="text-xs lg:text-sm font-medium text-white">Edit contact for this follow-up</p>
+              <p className="text-[10px] lg:text-xs text-gray-500">Optional — override auto-filled lead contact</p>
             </div>
           </div>
           <ChevronDown
-            size={18}
+            size={14} lg:size={18}
             className={`text-gray-500 transition-transform duration-200 ${showContactEdit ? 'rotate-180' : ''}`}
           />
         </button>
         {showContactEdit && (
-          <div className="px-5 pb-5 pt-1 border-t border-myth-border animate-slide-in">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="px-3 lg:px-5 pb-3 lg:pb-5 pt-1 border-t border-myth-border animate-slide-in">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-3">
               <input className="input-field" placeholder="Contact name" value={form.contactName} onChange={(e) => set('contactName', e.target.value)} />
               <input className="input-field" placeholder="Job title" value={form.contactTitle} onChange={(e) => set('contactTitle', e.target.value)} />
               <input className="input-field" placeholder="Company" value={form.company} onChange={(e) => set('company', e.target.value)} />
@@ -821,11 +821,11 @@ export default function FollowUpForm({
       </div>
 
       {/* Actions */}
-      <div className="flex flex-wrap items-center justify-end gap-3 pt-2 pb-1">
-        <button type="button" onClick={() => navigate(-1)} className="btn-secondary min-w-[100px]">
+      <div className="flex flex-wrap items-center justify-end gap-2 lg:gap-3 pt-2 pb-1">
+        <button type="button" onClick={() => navigate(-1)} className="btn-secondary min-w-[80px] lg:min-w-[100px]">
           Cancel
         </button>
-        <button type="submit" disabled={saving} className="btn-primary min-w-[160px]">
+        <button type="submit" disabled={saving} className="btn-primary min-w-[140px] lg:min-w-[160px]">
           {saving ? 'Saving…' : submitLabel}
         </button>
       </div>

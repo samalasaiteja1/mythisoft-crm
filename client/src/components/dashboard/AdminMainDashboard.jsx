@@ -9,6 +9,7 @@ import { formatCurrency } from '../../services/api';
 import CrmWorkflowGuide from './CrmWorkflowGuide';
 import LeadDealFollowUpGuide from './LeadDealFollowUpGuide';
 import FollowUpSummaryPanel from './FollowUpSummaryPanel';
+import AdminDashboardCharts from './AdminDashboardCharts';
 import {
   ADMIN_PIPELINE_STAGES,
   ADMIN_KPI_CARDS,
@@ -80,8 +81,8 @@ export default function AdminMainDashboard({ adminOverview, roleStats, stats, on
 
   return (
     <div className="space-y-4">
-      <CrmWorkflowGuide title="CRM Setup & Lead Workflow" highlightFrom={3} />
-      <LeadDealFollowUpGuide variant="admin" />
+      {/* Charts Section */}
+      <AdminDashboardCharts stats={stats} adminOverview={adminOverview} />
 
       {/* Hero + pipeline */}
       <div className="card border-orange-500/20 overflow-hidden">

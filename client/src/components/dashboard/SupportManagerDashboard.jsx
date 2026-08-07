@@ -20,6 +20,7 @@ import StatusBadge from '../StatusBadge';
 import { TICKET_PRIORITIES, TICKET_STATUSES, formatDateTime } from '../../services/api';
 import { isPendingCustomerAcceptance } from '../../utils/customerAcceptance';
 import { projectVersion } from '../../constants/customerPortalNav';
+import SupportManagerDashboardCharts from './SupportManagerDashboardCharts';
 
 const SUMMARY_CARDS = [
   { key: 'totalProjectsReceived', label: 'Projects Received', icon: Send, link: '/support/submitted-projects', color: 'text-indigo-400' },
@@ -196,6 +197,8 @@ export default function SupportManagerDashboard({ departmentOverview, roleStats,
           </div>
         </div>
       </div>
+
+      <SupportManagerDashboardCharts />
 
       {attentionItems.length > 0 && (
         <div className="card border-orange-500/20">

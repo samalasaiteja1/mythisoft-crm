@@ -197,64 +197,64 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
       {loading ? <LoadingSpinner /> : customers.length === 0 ? (
         <AdminEmptyState message="No customers found in this segment." icon={Users} />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
           {customers.map((c) => {
             const company = c.companyName || c.company?.name;
             const statusCls = statusColors[c.status] || statusColors.active;
             return (
               <article key={c._id} className="card border border-myth-border/80 border-l-[3px] border-l-myth-accent/60 hover:border-myth-accent/35 transition-all flex flex-col relative overflow-hidden group">
-                <div className="flex items-start justify-between gap-3 mb-4">
-                  <div className="flex items-center gap-3 min-w-0 flex-1">
-                    <div className={`w-11 h-11 shrink-0 rounded-xl flex items-center justify-center font-semibold text-sm ${statusCls}`}>
+                <div className="flex items-start justify-between gap-2 lg:gap-3 mb-3 lg:mb-4">
+                  <div className="flex items-center gap-2 lg:gap-3 min-w-0 flex-1">
+                    <div className={`w-10 h-10 lg:w-11 lg:h-11 shrink-0 rounded-xl flex items-center justify-center font-semibold text-xs lg:text-sm ${statusCls}`}>
                       {c.firstName[0]}{c.lastName[0]}
                     </div>
                     <div className="min-w-0">
-                      <h3 className="font-semibold text-white truncate leading-tight">
+                      <h3 className="font-semibold text-white truncate leading-tight text-sm lg:text-base">
                         {c.firstName} {c.lastName}
                       </h3>
-                      <p className="text-sm text-gray-400 truncate mt-0.5">{c.email}</p>
+                      <p className="text-xs lg:text-sm text-gray-400 truncate mt-0.5">{c.email}</p>
                     </div>
                   </div>
-                  <span className={`text-xs px-2 py-0.5 rounded-full shrink-0 capitalize ${statusCls}`}>
+                  <span className={`text-[10px] lg:text-xs px-2 py-0.5 rounded-full shrink-0 capitalize ${statusCls}`}>
                     {c.status}
                   </span>
                 </div>
 
-                <div className="space-y-2 text-sm flex-1">
+                <div className="space-y-1.5 lg:space-y-2 text-xs lg:text-sm flex-1">
                   <p className="flex items-center gap-2 text-gray-400 min-w-0">
-                    <Building2 size={14} className="text-myth-accent shrink-0" />
+                    <Building2 size={12} lg:size={14} className="text-myth-accent shrink-0" />
                     <span className="truncate">{company || c.title || 'No company'}</span>
                   </p>
                   {c.phone && (
                     <p className="flex items-center gap-2 text-gray-400">
-                      <Phone size={14} className="text-myth-accent shrink-0" />
+                      <Phone size={12} lg:size={14} className="text-myth-accent shrink-0" />
                       <span>{c.phone}</span>
                     </p>
                   )}
-                  <div className="pt-1 space-y-1.5">
+                  <div className="pt-1 space-y-1 lg:space-y-1.5">
                     {!isSales && <CustomerTechAssignmentBadge customer={c} />}
                     {!isSales && <CustomerSupportAssignmentBadge customer={c} />}
                   </div>
-                  <div className="rounded-lg bg-emerald-500/8 border border-emerald-500/15 px-3 py-2 mt-2">
-                    <p className="text-xs text-gray-500">Lifetime value</p>
-                    <p className="text-sm font-semibold text-emerald-300">{formatCurrency(c.lifetimeValue)}</p>
+                  <div className="rounded-lg bg-emerald-500/8 border border-emerald-500/15 px-2 lg:px-3 py-1.5 lg:py-2 mt-2">
+                    <p className="text-[10px] lg:text-xs text-gray-500">Lifetime value</p>
+                    <p className="text-xs lg:text-sm font-semibold text-emerald-300">{formatCurrency(c.lifetimeValue)}</p>
                   </div>
 
                   {/* Leads toggle and status badges (loaded on demand) */}
                   <div className="mt-2">
-                    <button type="button" onClick={() => toggleLeadsForCustomer(c._id)} className="text-xs text-gray-400 hover:text-myth-accent mr-3">
+                    <button type="button" onClick={() => toggleLeadsForCustomer(c._id)} className="text-[10px] lg:text-xs text-gray-400 hover:text-myth-accent mr-3">
                       Leads{(leadsByCustomer[c._id] && leadsByCustomer[c._id].length) ? ` (${leadsByCustomer[c._id].length})` : (loadingLeadsMap[c._id] ? ' (…) ' : '')}
                     </button>
                     {leadsOpenId === c._id && (
                       <div className="mt-2 space-y-1">
                         {loadingLeadsMap[c._id] ? (
-                          <p className="text-sm text-gray-400">Loading leads…</p>
+                          <p className="text-xs lg:text-sm text-gray-400">Loading leads…</p>
                         ) : (leadsByCustomer[c._id] || []).length === 0 ? (
-                          <p className="text-sm text-gray-400">No leads found.</p>
+                          <p className="text-xs lg:text-sm text-gray-400">No leads found.</p>
                         ) : (
                           <div className="flex flex-wrap gap-2">
                             {(leadsByCustomer[c._id] || []).map((lead) => (
-                              <span key={lead._id} className="text-xs px-2 py-0.5 rounded bg-myth-surface/20 text-gray-300">
+                              <span key={lead._id} className="text-[10px] lg:text-xs px-2 py-0.5 rounded bg-myth-surface/20 text-gray-300">
                                 {lead.title || lead.name || 'Lead'} — <span className="font-semibold">{lead.status}</span>
                               </span>
                             ))}
@@ -265,14 +265,14 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1 mt-4 pt-4 border-t border-myth-border/60">
+                <div className="flex items-center gap-1 mt-3 lg:mt-4 pt-3 lg:pt-4 border-t border-myth-border/60">
                   <Link
                     to={`/customers/${c._id}`}
                     state={SEGMENT_TAB_MAP[segment] ? { tab: SEGMENT_TAB_MAP[segment] } : undefined}
                     className="p-1.5 rounded hover:bg-myth-navy-light text-gray-400 hover:text-myth-accent"
                     title="View"
                   >
-                    <Eye size={16} />
+                    <Eye size={14} lg:size={16} />
                   </Link>
                   {canWrite('customers') && (
                     <button
@@ -285,7 +285,7 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                       className="p-1.5 rounded hover:bg-myth-navy-light text-gray-400 hover:text-white"
                       title="Edit"
                     >
-                      <Pencil size={16} />
+                      <Pencil size={14} lg:size={16} />
                     </button>
                   )}
                   {isAdmin && c.portalUser && (
@@ -295,7 +295,7 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                       className="p-1.5 rounded hover:bg-blue-500/10 text-gray-400 hover:text-blue-400"
                       title="Change portal password"
                     >
-                      <Key size={16} />
+                      <Key size={14} lg:size={16} />
                     </button>
                   )}
 
@@ -307,7 +307,7 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                           setShowManagerAssignId((s) => (s === c._id ? null : c._id));
                           setSelectedManager('');
                         }}
-                        className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1.5 text-xs font-medium transition-colors ${isAssignedToManager(c)
+                        className={`inline-flex items-center gap-1 lg:gap-1.5 rounded-lg border px-2 lg:px-2.5 py-1.5 text-[10px] lg:text-xs font-medium transition-colors ${isAssignedToManager(c)
                           ? 'border-emerald-500/40 bg-emerald-600/15 text-emerald-300 hover:bg-emerald-600/25'
                           : 'border-red-500/40 bg-red-600/90 text-white hover:bg-red-500'}`}
                         title="Assign to manager"
@@ -315,22 +315,22 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                         {isAssignedToManager(c) ? `Assigned To Manager: ${getAssignedManagerLabel(c)}` : 'Manager Assigning'}
                       </button>
                       {showManagerAssignId === c._id && (
-                        <div className="absolute right-0 mt-2 w-64 bg-myth-surface border border-myth-border rounded-lg p-3 z-50">
+                        <div className="absolute right-0 mt-2 w-56 lg:w-64 bg-myth-surface border border-myth-border rounded-lg p-2 lg:p-3 z-50">
                           {loadingManagers ? (
-                            <p className="text-sm text-gray-400">Loading managers…</p>
+                            <p className="text-xs lg:text-sm text-gray-400">Loading managers…</p>
                           ) : managers.length === 0 ? (
-                            <p className="text-sm text-gray-400">No managers found.</p>
+                            <p className="text-xs lg:text-sm text-gray-400">No managers found.</p>
                           ) : (
                             <>
-                              <label className="block text-xs text-gray-400 mb-2">Select manager</label>
-                              <select value={selectedManager} onChange={(e) => setSelectedManager(e.target.value)} className="input-field w-full mb-3">
+                              <label className="block text-[10px] lg:text-xs text-gray-400 mb-2">Select manager</label>
+                              <select value={selectedManager} onChange={(e) => setSelectedManager(e.target.value)} className="input-field w-full mb-2 lg:mb-3 text-xs lg:text-sm">
                                 <option value="">Select manager</option>
                                 {managers.map((m) => (
                                   <option key={m._id} value={m._id}>{m.firstName} {m.lastName}</option>
                                 ))}
                               </select>
                               <div className="flex gap-2 justify-end">
-                                <button type="button" onClick={() => { setShowManagerAssignId(null); setSelectedManager(''); }} className="btn-secondary">Cancel</button>
+                                <button type="button" onClick={() => { setShowManagerAssignId(null); setSelectedManager(''); }} className="btn-secondary text-xs lg:text-sm">Cancel</button>
                                 <button type="button" disabled={!selectedManager || assigningManager} onClick={async () => {
                                   if (!selectedManager) return;
                                   setAssigningManager(true);
@@ -347,7 +347,7 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                                   } finally {
                                     setAssigningManager(false);
                                   }
-                                }} className="btn-primary">{assigningManager ? 'Assigning…' : 'Assign'}</button>
+                                }} className="btn-primary text-xs lg:text-sm">{assigningManager ? 'Assigning…' : 'Assign'}</button>
                               </div>
                             </>
                           )}
@@ -368,7 +368,7 @@ export default function Customers({ segment = 'all', title = 'Customers' }) {
                       className="p-1.5 rounded hover:bg-red-500/10 text-gray-400 hover:text-red-400 ml-auto"
                       title="Delete"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={14} lg:size={16} />
                     </button>
                   )}
                 </div>

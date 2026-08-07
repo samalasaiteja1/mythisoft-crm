@@ -21,6 +21,7 @@ import {
 import { isPendingCustomerAcceptance } from '../../utils/customerAcceptance';
 import { SUPPORT_REVIEW_STATUSES } from '../../constants/supportWorkflow';
 import { ticketStatusMeta, canCustomerConfirm } from '../../constants/ticketStatusFlows';
+import CustomerDashboardCharts from './CustomerDashboardCharts';
 
 const SUMMARY = [
   { key: 'totalProjects', label: 'My Projects', icon: FolderKanban, link: '/projects', color: 'text-indigo-400' },
@@ -223,6 +224,8 @@ export default function CustomerMainDashboard({
         </div>
       </div>
 
+      <CustomerDashboardCharts />
+
       {attentionItems.length > 0 && (
         <div className="space-y-2">
           {attentionItems.map((item) => (
@@ -325,6 +328,11 @@ export default function CustomerMainDashboard({
                   </Link>
                   <div className="flex flex-wrap items-center gap-1 lg:gap-2 shrink-0">
                     <StatusBadge status={p.status} config={PROJECT_STATUSES} />
+                    {p.technicalStatus && (
+                      <span className="text-[10px] lg:text-xs px-2 py-0.5 rounded-full bg-cyan-500/15 border border-cyan-500/30 text-cyan-300">
+                        {p.technicalStatus.replace(/_/g, ' ')}
+                      </span>
+                    )}
                     {supportStatusBadge(p.supportReviewStatus)}
                     <CustomerAcceptanceBadge project={p} showWhenIdle />
                     <CustomerAcceptProjectButton project={p} compact />

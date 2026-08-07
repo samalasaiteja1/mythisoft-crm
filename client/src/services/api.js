@@ -67,6 +67,13 @@ export const leadsAPI = {
   qualify: (id, data) => API.post(`/leads/${id}/qualify`, data),
   convertToDeal: (id, data) => API.post(`/leads/${id}/convert-deal`, data),
   exportCsv: () => API.get('/leads/export', { responseType: 'blob' }),
+  importCsv: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    return API.post('/leads/import', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+  },
   getStats: () => API.get('/leads/stats'),
 };
 

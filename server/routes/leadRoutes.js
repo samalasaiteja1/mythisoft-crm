@@ -1,16 +1,20 @@
 import express from 'express';
+import multer from 'multer';
 import {
   getLeads, getLead, createLead, updateLead, deleteLead, convertLead,
-  getLeadStats, getLeadOptions, assignLead, assignLeadToManager, qualifyLead, convertLeadToDeal, exportLeads, getSalesTeam,
+  getLeadStats, getLeadOptions, assignLead, assignLeadToManager, qualifyLead, convertLeadToDeal, exportLeads, importLeads, getSalesTeam,
 } from '../controllers/leadController.js';
 import { protect } from '../middleware/auth.js';
 import { checkModule } from '../middleware/permissions.js';
 
 const router = express.Router();
 
+const upload = multer({ storage: multer.memoryStorage() });
+
 router.use(protect);
 
 router.get('/export', checkModule('leads', 'export'), exportLeads);
+router.post('/import', checkModule('leads', 'create'), upload.single('file'), importLeads);
 router.get('/stats', checkModule('leads'), getLeadStats);
 router.get('/options', checkModule('leads'), getLeadOptions);
 router.get('/team/sales', checkModule('leads', 'assign'), getSalesTeam);

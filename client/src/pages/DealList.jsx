@@ -54,38 +54,38 @@ export default function DealList() {
       : '/deals';
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between gap-4">
+    <div className="space-y-4 lg:space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between gap-3 lg:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-white">{pageTitle}</h1>
-          <p className="text-gray-400 mt-1">{pageSubtitle}</p>
+          <h1 className="text-xl lg:text-2xl font-bold text-white">{pageTitle}</h1>
+          <p className="text-xs lg:text-sm text-gray-400 mt-1">{pageSubtitle}</p>
         </div>
         <div className="flex flex-wrap gap-2">
           {(stage === 'won' || stage === 'lost') && (
-            <Link to={stage === 'won' ? '/deals/list?stage=lost' : '/deals/list?stage=won'} className="btn-secondary">
+            <Link to={stage === 'won' ? '/deals/list?stage=lost' : '/deals/list?stage=won'} className="btn-secondary text-xs lg:text-sm">
               {stage === 'won' ? 'View lost' : 'View won'}
             </Link>
           )}
-          <Link to="/deals" className="btn-secondary">View Pipeline</Link>
+          <Link to="/deals" className="btn-secondary text-xs lg:text-sm">View Pipeline</Link>
         </div>
       </div>
 
       {(stage === 'won' || stage === 'lost') && isAdmin && (
-        <div className="grid grid-cols-2 gap-3">
-          <div className="card py-3 px-4">
-            <p className="text-xs text-gray-400">{stage === 'won' ? 'Won / converted' : 'Lost deals'}</p>
-            <p className="text-xl font-bold text-white">{deals.length}</p>
+        <div className="grid grid-cols-2 gap-2 lg:gap-3">
+          <div className="card py-2 lg:py-3 px-3 lg:px-4">
+            <p className="text-[10px] lg:text-xs text-gray-400">{stage === 'won' ? 'Won / converted' : 'Lost deals'}</p>
+            <p className="text-lg lg:text-xl font-bold text-white">{deals.length}</p>
           </div>
-          <div className="card py-3 px-4">
-            <p className="text-xs text-gray-400">Total value</p>
-            <p className="text-xl font-bold text-myth-accent">{formatCurrency(deals.reduce((s, d) => s + (d.value || 0), 0))}</p>
+          <div className="card py-2 lg:py-3 px-3 lg:px-4">
+            <p className="text-[10px] lg:text-xs text-gray-400">Total value</p>
+            <p className="text-lg lg:text-xl font-bold text-myth-accent">{formatCurrency(deals.reduce((s, d) => s + (d.value || 0), 0))}</p>
           </div>
         </div>
       )}
 
       <SearchBar value={search} onChange={setSearch} placeholder="Search deals..." />
       <div className="card overflow-x-auto">
-        <table className="w-full">
+        <table className="w-full text-xs lg:text-sm">
           <thead><tr>
             <th className="table-header">Deal Name</th><th className="table-header">Customer</th><th className="table-header">Value</th>
             <th className="table-header">Salesperson</th><th className="table-header">Stage</th><th className="table-header">Expected Close</th><th className="table-header">Probability</th>
@@ -93,7 +93,7 @@ export default function DealList() {
           <tbody>
             {deals.length === 0 ? (
               <tr>
-                <td colSpan={7} className="table-cell text-center text-gray-500 py-12">No deals found</td>
+                <td colSpan={7} className="table-cell text-center text-gray-500 py-8 lg:py-12">No deals found</td>
               </tr>
             ) : deals.map((d) => (
               <tr key={d._id} className="border-t border-myth-border hover:bg-myth-surface/30">

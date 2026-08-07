@@ -7,36 +7,36 @@ const projectStatusOptions = PROJECT_STATUS_KEYS.map((value) => ({
   label: PROJECT_STATUSES[value]?.label || value.replace(/_/g, ' '),
 }));
 
-const fieldLabel = 'block text-sm font-medium text-gray-300 mb-1.5';
-const sectionTitle = 'text-sm font-semibold text-white';
-const sectionHint = 'text-xs text-gray-500';
+const fieldLabel = 'block text-xs lg:text-sm font-medium text-gray-300 mb-1.5';
+const sectionTitle = 'text-xs lg:text-sm font-semibold text-white';
+const sectionHint = 'text-[10px] lg:text-xs text-gray-500';
 
 const ContactReadOnly = ({ form }) => (
-  <div className="rounded-lg border border-myth-accent/30 bg-myth-accent/5 p-4 space-y-3">
+  <div className="rounded-lg border border-myth-accent/30 bg-myth-accent/5 p-3 lg:p-4 space-y-2 lg:space-y-3">
     <div>
       <h3 className={sectionTitle}>Contact from deal</h3>
       <p className={`${sectionHint} mt-1`}>Pulled from the linked lead — review and confirm below</p>
     </div>
-    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 text-sm">
+    <dl className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-3 text-xs lg:text-sm">
       <div>
-        <dt className="text-gray-500 text-xs uppercase tracking-wide mb-0.5">Name</dt>
+        <dt className="text-gray-500 text-[10px] lg:text-xs uppercase tracking-wide mb-0.5">Name</dt>
         <dd className="text-white">{[form.firstName, form.lastName].filter(Boolean).join(' ') || '—'}</dd>
       </div>
       <div>
-        <dt className="text-gray-500 text-xs uppercase tracking-wide mb-0.5">Email</dt>
+        <dt className="text-gray-500 text-[10px] lg:text-xs uppercase tracking-wide mb-0.5">Email</dt>
         <dd className="text-white break-all">{form.email || '—'}</dd>
       </div>
       <div>
-        <dt className="text-gray-500 text-xs uppercase tracking-wide mb-0.5">Phone</dt>
+        <dt className="text-gray-500 text-[10px] lg:text-xs uppercase tracking-wide mb-0.5">Phone</dt>
         <dd className="text-white">{form.phone || '—'}</dd>
       </div>
       <div>
-        <dt className="text-gray-500 text-xs uppercase tracking-wide mb-0.5">Company</dt>
+        <dt className="text-gray-500 text-[10px] lg:text-xs uppercase tracking-wide mb-0.5">Company</dt>
         <dd className="text-white">{form.companyName || '—'}</dd>
       </div>
       {form.title && (
         <div>
-          <dt className="text-gray-500 text-xs uppercase tracking-wide mb-0.5">Job title</dt>
+          <dt className="text-gray-500 text-[10px] lg:text-xs uppercase tracking-wide mb-0.5">Job title</dt>
           <dd className="text-white">{form.title}</dd>
         </div>
       )}
@@ -87,15 +87,15 @@ export default function CustomerForm({
   );
 
   return (
-    <form onSubmit={onSubmit} className="space-y-6">
+    <form onSubmit={onSubmit} className="space-y-4 lg:space-y-6">
       {fromDealConversion && contactLocked && (
         <ContactReadOnly form={form} />
       )}
 
       {fromDealConversion && !contactLocked && dealTitle && (
-        <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4">
+        <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4">
           <h3 className={sectionTitle}>Deal</h3>
-          <p className="text-white text-sm mt-1">{dealTitle}</p>
+          <p className="text-white text-xs lg:text-sm mt-1">{dealTitle}</p>
           <p className={`${sectionHint} mt-1`}>No lead contact on file — set account details below</p>
         </div>
       )}
@@ -108,8 +108,8 @@ export default function CustomerForm({
             <>
               <div>
                 <h3 className={sectionTitle}>Customer name</h3>
-                <p className={`${sectionHint} mt-1 mb-3`}>Primary contact person for this account</p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <p className={`${sectionHint} mt-1 mb-2 lg:mb-3`}>Primary contact person for this account</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
                   <div>
                     <label className={fieldLabel}>First name *</label>
                     <input
@@ -133,12 +133,12 @@ export default function CustomerForm({
                 </div>
               </div>
 
-              <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+              <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
                 <div>
                   <h3 className={sectionTitle}>Contact information</h3>
                   <p className={`${sectionHint} mt-1`}>Email, phone, and job details</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
                   <div>
                     <label className={fieldLabel}>Email *</label>
                     <input
@@ -186,12 +186,12 @@ export default function CustomerForm({
       )}
 
       {!fromDealConversion && !contactLocked && (
-      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
         <div>
           <h3 className={sectionTitle}>Address</h3>
           <p className={`${sectionHint} mt-1`}>Billing or office location (optional)</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div className="sm:col-span-2">
             <label className={fieldLabel}>Street</label>
             <input
@@ -242,7 +242,7 @@ export default function CustomerForm({
       )}
 
       {!userExistsForEmail && !contactLocked && (
-        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-4 space-y-4">
+        <div className="rounded-lg border border-blue-500/20 bg-blue-500/5 p-3 lg:p-4 space-y-3 lg:space-y-4">
           <div>
             <h3 className={sectionTitle}>Customer Portal Access (Optional)</h3>
             <p className={`${sectionHint} mt-1`}>Provide a password to create a customer portal account for this customer. They can login to track their progress.</p>
@@ -262,7 +262,7 @@ export default function CustomerForm({
         </div>
       )}
       {userExistsForEmail && !contactLocked && (
-        <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-4 space-y-4">
+        <div className="rounded-lg border border-green-500/20 bg-green-500/5 p-3 lg:p-4 space-y-3 lg:space-y-4">
           <div>
             <h3 className={sectionTitle}>Customer Portal Access</h3>
             <p className={`${sectionHint} mt-1`}>A portal account already exists for this email. The customer can login with their existing credentials.</p>
@@ -270,12 +270,12 @@ export default function CustomerForm({
         </div>
       )}
 
-      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
         <div>
           <h3 className={sectionTitle}>Account settings</h3>
           <p className={`${sectionHint} mt-1`}>Status and internal notes</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
             <label className={fieldLabel}>Status</label>
             <select
@@ -302,12 +302,12 @@ export default function CustomerForm({
 
       {/* Project requirements section */}
       {!(fromDealConversion && hasProjectRequirementsData(form)) && (
-      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+      <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
         <div>
           <h3 className={sectionTitle}>Project requirements</h3>
           <p className={`${sectionHint} mt-1`}>Capture initial delivery requirements for this customer (optional)</p>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
           <div>
             <label className={fieldLabel}>Project category</label>
             <select
@@ -423,7 +423,7 @@ export default function CustomerForm({
       )}
 
       {showProjectSetup && fromDealConversion && hasProjectRequirementsData(form) && (
-        <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-4 space-y-4">
+        <div className="rounded-lg border border-myth-border bg-myth-surface/30 p-3 lg:p-4 space-y-3 lg:space-y-4">
           {projectStatusField}
           <CustomerProjectSetupSteps
             form={form}
@@ -435,7 +435,7 @@ export default function CustomerForm({
         </div>
       )}
 
-      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-2 border-t border-myth-border">
+      <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-2 lg:gap-3 pt-2 border-t border-myth-border">
         {onCancel && (
           <button type="button" onClick={onCancel} className="btn-secondary w-full sm:w-auto" disabled={submitting}>
             {cancelLabel}
