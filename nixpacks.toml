@@ -1,6 +1,6 @@
 # Root nixpacks.toml
 #
-# NOTE: When a Railway service sets a custom rootDirectory (e.g. /server or
+# NOTE: When a deployment service sets a custom rootDirectory (e.g. /server or
 # /client), Railpack/Nixpacks looks for a nixpacks.toml inside that
 # subdirectory rather than this root config. See server/nixpacks.toml and
 # client/nixpacks.toml for the per-service build/start configuration used by

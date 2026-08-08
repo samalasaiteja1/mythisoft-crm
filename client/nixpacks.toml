@@ -1,6 +1,6 @@
 # nixpacks.toml for the frontend service (calm-wonder)
 #
-# This file is used when the Railway service's rootDirectory is set to
+# This file is used when a deployment service's rootDirectory is set to
 # /client. It overrides Railpack's monorepo auto-detection so the service
 # only installs and builds within this directory, and serves the built
 # Vite app with `serve`.

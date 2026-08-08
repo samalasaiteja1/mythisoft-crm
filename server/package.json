@@ -6,12 +6,19 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "start:prod": "NODE_ENV=production node server.js",
     "dev": "nodemon server.js",
     "build": "echo 'No server build step required'",
+    "build:client": "npm --prefix ../client install && npm --prefix ../client run build",
+    "postinstall": "npm run build:client || true",
+    "deploy": "npm run build:client && npm start",
     "seed": "node utils/seed.js",
     "seed:code-review": "node utils/seedCodeReviewSamples.js",
     "seed:examples": "node utils/seedExamples.js",
     "reset-demo-passwords": "node utils/resetDemoPasswords.js"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

@@ -7,7 +7,7 @@ import { findAvailablePort } from './utils/port.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const requestedPort = Number.parseInt(process.env.PORT || '5000', 10);
-const isProduction = process.env.NODE_ENV === 'production' || Boolean(process.env.RAILWAY_ENVIRONMENT || process.env.RAILWAY_PROJECT_ID);
+const isProduction = process.env.NODE_ENV === 'production';
 
 const startServer = async () => {
   try {

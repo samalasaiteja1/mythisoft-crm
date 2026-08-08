@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "npx serve -s dist -l $PORT",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "axios": "^1.7.7",

@@ -1,6 +1,6 @@
 # nixpacks.toml for the backend service (mythisoft-crm)
 #
-# This file is used when the Railway service's rootDirectory is set to
+# This file is used when a deployment service's rootDirectory is set to
 # /server. It overrides Railpack's monorepo auto-detection so the service
 # only installs and builds within this directory, and starts the Express
 # API directly.
