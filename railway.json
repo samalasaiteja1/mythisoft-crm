@@ -1,0 +1,27 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "name": "mythisoft-crm",
+  "services": [
+    {
+      "name": "server",
+      "rootDirectory": "server",
+      "buildCommand": "npm install",
+      "startCommand": "npm start",
+      "env": {
+        "PORT": "$PORT",
+        "MONGODB_URI": "",
+        "JWT_SECRET": "",
+        "CLOUDINARY_URL": ""
+      }
+    },
+    {
+      "name": "client",
+      "rootDirectory": "client",
+      "buildCommand": "npm install && npm run build",
+      "startCommand": "npx serve -s dist -l $PORT",
+      "env": {
+        "VITE_API_URL": "https://${{services.server.RAILWAY_PUBLIC_DOMAIN}}"
+      }
+    }
+  ]
+}
